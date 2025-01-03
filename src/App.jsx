@@ -1,4 +1,4 @@
-import Sponsors from "./components/sponsors/sponsors"
+import Sponsors from "./components/sponsors/Sponsors"
 
 import TestimonialSection from "./components/Testimonials/TestimonialSection"
 
