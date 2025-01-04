@@ -10,6 +10,7 @@ const RegistrationForm = () => {
   const {
     register,
     handleSubmit,
+    trigger,
     formState: { errors },
   } = useForm()
   const [currentStep, setCurrentStep] = useState(0)
@@ -18,8 +19,13 @@ const RegistrationForm = () => {
     console.log('Form Data:', data)
   }
 
-  const handleNext = () => {
-    if (currentStep < formData.sections.length - 1) {
+  const handleNext = async () => {
+    // Trigger validation for all fields in the current section
+    const isValid = await trigger(
+      formData.sections[currentStep].fields.map((field) => field.fieldName),
+    )
+
+    if (isValid) {
       setCurrentStep((prev) => prev + 1)
     }
   }
