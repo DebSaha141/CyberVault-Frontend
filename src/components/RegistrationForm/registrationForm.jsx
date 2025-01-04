@@ -20,7 +20,6 @@ const RegistrationForm = () => {
   }
 
   const handleNext = async () => {
-    // Trigger validation for all fields in the current section
     const isValid = await trigger(
       formData.sections[currentStep].fields.map((field) => field.fieldName),
     )
@@ -41,7 +40,6 @@ const RegistrationForm = () => {
       <h1>{formData.infoObject.formTitle}</h1>
       <p>{formData.infoObject.description}</p>
 
-      {/* Display Current Section */}
       <div>
         <h2>{formData.sections[currentStep].sectionTitle}</h2>
         {formData.sections[currentStep].fields.map((field, index) => {
@@ -82,8 +80,6 @@ const RegistrationForm = () => {
           }
         })}
       </div>
-
-      {/* Navigation Buttons */}
       <div>
         {currentStep > 0 && (
           <button type="button" onClick={handlePrevious}>
