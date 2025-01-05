@@ -1,0 +1,148 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+
+:root {
+  --cyber-black: #000000;
+  --cyber-green: #00ff00;
+  --cyber-dark-green: #006400;
+  --cyber-blue: #00ffff;
+  --cyber-pink: #ff00ff;
+}
+
+body {
+  background-image: linear-gradient(to top, #015801, #000000 40%);
+  color: var(--cyber-green);
+  font-family: 'Orbitron', sans-serif;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+.cybercontainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  width: 100%;
+  padding: 1rem;
+}
+
+.cybertitle {
+  font-size: 2.5rem;
+  color: white;
+  margin-bottom: 0;
+  text-align: center;
+}
+
+.cybersubtitle {
+  color: var(--cyber-dark-green);
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.cyberformgroup {
+  width: 100%;
+  max-width: 500px;
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.cyberformgroup label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--cyber-green);
+}
+
+.cyberinput,
+.cyberselect {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: black;
+  border: 1px solid green;
+  border-left: 2px solid green;
+  border-right: 2px solid green;
+  border-radius: 4px;
+  color: white;
+  font-family: 'Orbitron', sans-serif;
+  transition: all 0.3s ease;
+}
+
+.cyberselect {
+  width: 100%;
+}
+
+.cyberinput:focus,
+.cyberselect:focus {
+  outline: none;
+  box-shadow: 0 0 10px var(--cyber-green);
+}
+
+.cyberinput::placeholder {
+  color: rgba(0, 255, 0, 0.5);
+}
+
+.cybersubmitbutton {
+  padding: 15px 32px;
+  border-top-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  background-color: var(--cyber-green);
+  color: var(--cyber-black);
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  font-family: 'Orbitron', sans-serif;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  clip-path: polygon(
+    0% 0%,
+    90% 0%,
+    100% 40%,
+    100% 0%,
+    100% 100%,
+    10% 100%,
+    0% 70%
+  );
+  margin-left: 20px;
+}
+
+.cybersubmitbutton:hover {
+  background-color: var(--cyber-blue);
+  box-shadow: 0 0 20px var(--cyber-blue);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .cybertitle {
+    font-size: 2rem;
+  }
+
+  .cybersubmitbutton {
+    padding: 12px 24px;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .cybertitle {
+    font-size: 1.8rem;
+  }
+
+  .cybersubtitle {
+    font-size: 1rem;
+  }
+
+  .cyberinput,
+  .cyberselect {
+    padding: 0.5rem;
+  }
+
+  .cybersubmitbutton {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+
+    clip-path: none;
+    border-radius: 8px;
+  }
+}

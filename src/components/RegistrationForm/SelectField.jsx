@@ -1,7 +1,10 @@
+import styles from './styles/registrationForm.module.scss'
+
 const SelectField = ({ field, register, errors }) => (
-  <div>
+  <div className={styles.cyberformgroup}>
     <label htmlFor={field.fieldName}>{field.label}</label>
     <select
+      className={styles.cyberselect}
       id={field.fieldName}
       {...register(field.fieldName, {
         required: field.required && `${field.label} is required`,
@@ -14,7 +17,7 @@ const SelectField = ({ field, register, errors }) => (
       ))}
     </select>
     {errors[field.fieldName] && (
-      <p style={{ color: 'red' }}>{errors[field.fieldName]?.message}</p>
+      <p className={styles.cybererror}>{errors[field.fieldName]?.message}</p>
     )}
   </div>
 )

@@ -1,7 +1,10 @@
+import styles from './styles/registrationForm.module.scss'
+
 const IncrementDecrementField = ({ field, register, errors }) => (
-  <div>
+  <div className={styles.cyberformgroup}>
     <label htmlFor={field.fieldName}>{field.label}</label>
     <input
+      className={styles.cyberinput}
       type="number"
       id={field.fieldName}
       {...register(field.fieldName, {
@@ -17,7 +20,7 @@ const IncrementDecrementField = ({ field, register, errors }) => (
       })}
     />
     {errors[field.fieldName] && (
-      <p style={{ color: 'red' }}>{errors[field.fieldName]?.message}</p>
+      <p className={styles.cybererror}>{errors[field.fieldName]?.message}</p>
     )}
   </div>
 )

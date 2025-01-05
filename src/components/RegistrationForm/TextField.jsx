@@ -1,20 +1,20 @@
+import styles from './styles/registrationForm.module.scss'
+
 const TextField = ({ field, register, errors }) => (
-  <div>
-    <label htmlFor={field.fieldName}>{field.label}</label>
+  <div className={styles.cyberformgroup}>
+    <label htmlFor={field.fieldName} className="cyber-label">
+      {field.label}
+    </label>
     <input
+      className={styles.cyberinput}
       type="text"
       id={field.fieldName}
-      placeholder={field.placeholder}
       {...register(field.fieldName, {
         required: field.required && `${field.label} is required`,
-        pattern: field.validation?.pattern && {
-          value: new RegExp(field.validation.pattern),
-          message: field.validation.feedback,
-        },
       })}
     />
     {errors[field.fieldName] && (
-      <p style={{ color: 'red' }}>{errors[field.fieldName]?.message}</p>
+      <p className={styles.cybererror}>{errors[field.fieldName]?.message}</p>
     )}
   </div>
 )

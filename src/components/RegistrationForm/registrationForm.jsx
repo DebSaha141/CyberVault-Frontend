@@ -5,18 +5,21 @@ import TextField from './TextField'
 import SelectField from './SelectField'
 import CheckboxField from './CheckboxField'
 import IncrementDecrementField from './Increment-Decrement'
+import styles from './styles/registrationForm.module.scss'
 
 const RegistrationForm = () => {
   const {
     register,
     handleSubmit,
     trigger,
+    reset,
     formState: { errors },
   } = useForm()
   const [currentStep, setCurrentStep] = useState(0)
 
   const onSubmit = (data) => {
     console.log('Form Data:', data)
+    reset()
   }
 
   const handleNext = async () => {
@@ -36,12 +39,14 @@ const RegistrationForm = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <h1>{formData.infoObject.formTitle}</h1>
-      <p>{formData.infoObject.description}</p>
+    <form className={styles.cybercontainer} onSubmit={handleSubmit(onSubmit)}>
+      <h1 className={styles.cybertitle}>{formData.infoObject.formTitle}</h1>
+      <p className={styles.cybersubtitle}>{formData.infoObject.description}</p>
 
       <div>
-        <h2>{formData.sections[currentStep].sectionTitle}</h2>
+        <h2 className={styles.cybertitle}>
+          {formData.sections[currentStep].sectionTitle}
+        </h2>
         {formData.sections[currentStep].fields.map((field, index) => {
           switch (field.type) {
             case 'text':
@@ -82,16 +87,26 @@ const RegistrationForm = () => {
       </div>
       <div>
         {currentStep > 0 && (
-          <button type="button" onClick={handlePrevious}>
+          <button
+            type="button"
+            className={styles.cybersubmitbutton}
+            onClick={handlePrevious}
+          >
             Previous
           </button>
         )}
         {currentStep < formData.sections.length - 1 ? (
-          <button type="button" onClick={handleNext}>
+          <button
+            type="button"
+            className={styles.cybersubmitbutton}
+            onClick={handleNext}
+          >
             Next
           </button>
         ) : (
-          <button type="submit">Submit</button>
+          <button type="submit" className={styles.cybersubmitbutton}>
+            Submit
+          </button>
         )}
       </div>
     </form>
