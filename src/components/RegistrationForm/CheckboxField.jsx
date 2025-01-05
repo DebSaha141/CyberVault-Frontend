@@ -2,7 +2,7 @@ import styles from './styles/registrationForm.module.scss'
 
 const CheckboxField = ({ field, register }) => (
   <div className={styles.cyberformgroup}>
-    <label>{field.label}</label>
+    <label>{field.label.toUpperCase()}</label>
     {field.options.map((option, index) => (
       <div key={index} className={styles.cybercheckboxgroup}>
         <label htmlFor={`${field.fieldName}-${index}`}>

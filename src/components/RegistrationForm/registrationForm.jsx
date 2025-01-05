@@ -5,7 +5,7 @@ import TextField from './TextField'
 import SelectField from './SelectField'
 import CheckboxField from './CheckboxField'
 import IncrementDecrementField from './Increment-Decrement'
-import styles from './styles/registrationForm.module.scss'
+import styles from './styles/RegistrationForm.module.scss'
 
 const RegistrationForm = () => {
   const {

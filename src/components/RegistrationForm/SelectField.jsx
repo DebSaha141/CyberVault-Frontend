@@ -2,7 +2,7 @@ import styles from './styles/registrationForm.module.scss'
 
 const SelectField = ({ field, register, errors }) => (
   <div className={styles.cyberformgroup}>
-    <label htmlFor={field.fieldName}>{field.label}</label>
+    <label htmlFor={field.fieldName}>{field.label.toUpperCase()}</label>
     <select
       className={styles.cyberselect}
       id={field.fieldName}

@@ -51,7 +51,7 @@
           "required": true,
           "validation": {
             "pattern": "^[a-zA-Z0-9._%+-]+@kiit.ac.in$",
-            "feedback": "Email must be a valid KIIT email address (e.g., 2105043@kiit.ac.in)."
+            "feedback": "Email must be a valid KIIT email address."
           }
         },
         {
@@ -82,6 +82,17 @@
           "validation": {
             "pattern": "^[0-9]{10}$",
             "feedback": "Mobile number must be exactly 10 digits."
+          }
+        },
+        {
+          "fieldName": "whatsappNumber",
+          "type": "text",
+          "label": "Wahtsapp Number",
+          "placeholder": "Enter your mobile number",
+          "required": true,
+          "validation": {
+            "pattern": "^[0-9]{10}$",
+            "feedback": "Whatsapp number must be exactly 10 digits."
           }
         },
         {

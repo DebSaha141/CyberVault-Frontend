@@ -30,7 +30,7 @@ body {
 .cybertitle {
   font-size: 2.5rem;
   color: white;
-  margin-bottom: 0;
+  margin-bottom: 1rem;
   text-align: center;
 }
 
@@ -41,23 +41,35 @@ body {
 }
 
 .cyberformgroup {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   width: 100%;
   max-width: 500px;
   margin-bottom: 1.5rem;
   position: relative;
 }
 
+.cybererror{
+  margin-right: auto;
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+}
+
 .cyberformgroup label {
   display: block;
+  margin: 0;
+  padding: 0;
+  margin-right: auto;
   margin-bottom: 0.5rem;
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: var(--cyber-green);
 }
 
-.cyberinput,
-.cyberselect {
-  width: 100%;
-  padding: 0.75rem;
+.cyberinput {
+  width: 92%;
+  padding: 1.2rem;
   background-color: black;
   border: 1px solid green;
   border-left: 2px solid green;
@@ -65,12 +77,86 @@ body {
   border-radius: 4px;
   color: white;
   font-family: 'Orbitron', sans-serif;
+  font-size: 1rem;
   transition: all 0.3s ease;
+}
+
+.cyberselect{
+  width: 92%;
+  padding: 1.2rem;
+  background-color: black;
+  border: 1px solid green;
+  border-left: 2px solid green;
+  border-right: 2px solid green;
+  border-radius: 4px;
+  color: white;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  appearance: none;
+  background-image: url("https://img.icons8.com/?size=100&id=2GaoSkGKgvQZ&format=png&color=006400");
+  background-repeat: no-repeat;
+  background-position: right 0.7rem top 50%;
+  background-size: 1.5rem auto;
 }
 
 .cyberselect {
   width: 100%;
 }
+
+.incrementDecrementWrapper {
+  display: flex;
+  align-items: center;
+}
+
+.cyberIncrementDecrementInput {
+  width: 110%;
+  text-align: center;
+  padding: 1.2rem;
+  background-color: black;
+  border: 1px solid green;
+  border-left: 2px solid green;
+  border-right: 2px solid green;
+  border-radius: 4px;
+  color: white;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  margin-left: 10px;
+  margin-right: 10px;
+  -moz-appearance: textfield; 
+  -webkit-appearance: none; 
+  appearance: none; 
+}
+
+.cyberIncrementDecrementInput::-webkit-inner-spin-button,
+.cyberIncrementDecrementInput::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.incrementButton, .decrementButton {
+  width: 6rem;
+  height: 3.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #0f0;
+  opacity: 0.8;
+  color: black;
+  border: none;
+  cursor: pointer;
+  font-size: 2rem;
+  border-radius: 50px;
+  font-weight: bold;
+}
+
+.incrementButton:disabled, .decrementButton:disabled {
+  background-color: var(--cyber-dark-green);
+  color: black;
+  cursor: not-allowed;
+}
+
 
 .cyberinput:focus,
 .cyberselect:focus {
@@ -79,6 +165,15 @@ body {
 }
 
 .cyberinput::placeholder {
+  color: rgba(0, 255, 0, 0.5);
+}
+
+.cyberIncrementDecrementInput:focus {
+  outline: none;
+  box-shadow: 0 0 10px var(--cyber-green);
+}
+
+.cyberIncrementDecrementInput::placeholder {
   color: rgba(0, 255, 0, 0.5);
 }
 
@@ -135,7 +230,19 @@ body {
 
   .cyberinput,
   .cyberselect {
-    padding: 0.5rem;
+    padding: 0.75rem;
+  }
+
+  .cyberIncrementDecrementInput{
+    padding: 0.75rem;
+  }
+
+  .cyberselect{
+    width: 103%;
+  }
+
+  .cyberinput {
+    width: 95%;
   }
 
   .cybersubmitbutton {
@@ -144,5 +251,10 @@ body {
 
     clip-path: none;
     border-radius: 8px;
+  }
+
+  .incrementButton, .decrementButton {
+    width: 4rem;
+    height: 2.5rem;
   }
 }
