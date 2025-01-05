@@ -1,149 +1,116 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import "./styles/RegistrationForm.scss";
-import { BACKEND_URL } from "../../config";
+import React, { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import formData from '../../data/test/form.json'
+import TextField from './TextField'
+import SelectField from './SelectField'
+import CheckboxField from './CheckboxField'
+import IncrementDecrementField from './Increment-Decrement'
+import styles from './styles/registrationForm.module.scss'
 
 const RegistrationForm = () => {
-  const [formData, setFormData] = useState({
-    rollNumber: "",
-    kiitEmail: "",
-    personalEmail: "",
-    gender: "",
-    mobileNumber: "",
-    whatsappNumber: "",
-  });
+  const {
+    register,
+    handleSubmit,
+    trigger,
+    reset,
+    formState: { errors },
+  } = useForm()
+  const [currentStep, setCurrentStep] = useState(0)
 
-  const [isLoaded, setIsLoaded] = useState(false);
+  const onSubmit = (data) => {
+    console.log('Form Data:', data)
+    reset()
+  }
 
-  useEffect(() => {
-    setIsLoaded(true);
-  }, []);
+  const handleNext = async () => {
+    const isValid = await trigger(
+      formData.sections[currentStep].fields.map((field) => field.fieldName),
+    )
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.log("Form submitted:", formData);
-
-    try {
-      const response = await axios.post(`${BACKEND_URL}/api/submit-registration`, formData);
-
-      console.log("API Response:", response.data);
-      setSubmissionResponse(response.data);
-      alert("Form submitted successfully!");
-    } catch (error) {
-      console.error("Error submitting the form:", error);
-      alert("Failed to submit the form. Please try again.");
+    if (isValid) {
+      setCurrentStep((prev) => prev + 1)
     }
-  };
+  }
+
+  const handlePrevious = () => {
+    if (currentStep > 0) {
+      setCurrentStep((prev) => prev - 1)
+    }
+  }
 
   return (
-    <div className={`cyber-container flex justify-center  ${isLoaded ? "loaded" : ""}`}>
-        <main className="cyber-main">
-          <h1 className="cyber-title">REGISTRATION FORM</h1>
-          <p className="cyber-subtitle">Securing the future, One Byte at a time.</p>
-          <form onSubmit={handleSubmit} className="cyber-form">
-            <div className="cyber-form-group">
-              <label htmlFor="rollNumber">ROLL NUMBER</label>
-              <input
-                type="text"
-                id="rollNumber"
-                name="rollNumber"
-                value={formData.rollNumber}
-                onChange={handleChange}
-                placeholder="Enter your roll number"
-                required
-                className="cyber-input"
-              />
-            </div>
+    <form className={styles.cybercontainer} onSubmit={handleSubmit(onSubmit)}>
+      <h1 className={styles.cybertitle}>{formData.infoObject.formTitle}</h1>
+      <p className={styles.cybersubtitle}>{formData.infoObject.description}</p>
 
-            <div className="cyber-form-group">
-              <label htmlFor="kiitEmail">KIIT EMAIL ID</label>
-              <input
-                type="email"
-                id="kiitEmail"
-                name="kiitEmail"
-                value={formData.kiitEmail}
-                onChange={handleChange}
-                placeholder="Enter your KIIT email"
-                required
-                className="cyber-input"
-              />
-            </div>
+      <div>
+        <h2 className={styles.cybertitle}>
+          {formData.sections[currentStep].sectionTitle}
+        </h2>
+        {formData.sections[currentStep].fields.map((field, index) => {
+          switch (field.type) {
+            case 'text':
+              return (
+                <TextField
+                  key={index}
+                  field={field}
+                  register={register}
+                  errors={errors}
+                />
+              )
+            case 'select':
+              return (
+                <SelectField
+                  key={index}
+                  field={field}
+                  register={register}
+                  errors={errors}
+                />
+              )
+            case 'checkbox':
+              return (
+                <CheckboxField key={index} field={field} register={register} />
+              )
+            case 'increment-decrement':
+              return (
+                <IncrementDecrementField
+                  key={index}
+                  field={field}
+                  register={register}
+                  errors={errors}
+                />
+              )
+            default:
+              return null
+          }
+        })}
+      </div>
+      <div>
+        {currentStep > 0 && (
+          <button
+            type="button"
+            className={styles.cybersubmitbutton}
+            onClick={handlePrevious}
+          >
+            Previous
+          </button>
+        )}
+        {currentStep < formData.sections.length - 1 ? (
+          <button
+            type="button"
+            className={styles.cybersubmitbutton}
+            onClick={handleNext}
+          >
+            Next
+          </button>
+        ) : (
+          <button type="submit" className={styles.cybersubmitbutton}>
+            Submit
+          </button>
+        )}
+      </div>
+    </form>
+  )
+}
 
-            <div className="cyber-form-group">
-              <label htmlFor="personalEmail">PERSONAL EMAIL ID</label>
-              <input
-                type="email"
-                id="personalEmail"
-                name="personalEmail"
-                value={formData.personalEmail}
-                onChange={handleChange}
-                placeholder="Enter your personal email"
-                required
-                className="cyber-input"
-              />
-            </div>
-
-            <div className="cyber-form-group">
-              <label htmlFor="gender">GENDER</label>
-              <select
-                id="gender"
-                name="gender"
-                value={formData.gender}
-                onChange={handleChange}
-                required
-                className="cyber-select"
-              >
-                <option value="">Select gender</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-                <option value="other">Other</option>
-              </select>
-            </div>
-
-            <div className="cyber-form-group">
-              <label htmlFor="mobileNumber">MOBILE NUMBER</label>
-              <input
-                type="tel"
-                id="mobileNumber"
-                name="mobileNumber"
-                value={formData.mobileNumber}
-                onChange={handleChange}
-                placeholder="Enter your mobile number"
-                required
-                className="cyber-input"
-              />
-            </div>
-
-            <div className="cyber-form-group">
-              <label htmlFor="whatsappNumber">WHATSAPP NUMBER</label>
-              <input
-                type="tel"
-                id="whatsappNumber"
-                name="whatsappNumber"
-                value={formData.whatsappNumber}
-                onChange={handleChange}
-                placeholder="Enter your WhatsApp number"
-                required
-                className="cyber-input"
-              />
-            </div>
-            <button type="submit" className="cyber-submit-button">
-              <span className="cyber-button-text">SUBMIT</span>
-              <span className="cyber-button-glitch"></span>
-            </button>
-          </form>
-        </main>
-    </div>
-
-  );
-};
-
-export default RegistrationForm;
+export default RegistrationForm
