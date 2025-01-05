@@ -25,7 +25,7 @@ const IncrementDecrementField = ({ field, register, errors }) => {
 
   return (
     <div className={styles.cyberformgroup}>
-      <label htmlFor={field.fieldName}>{field.label}</label>
+      <label htmlFor={field.fieldName}>{field.label.toUpperCase()}</label>
       <div className={styles.incrementDecrementWrapper}>
         <button
           type="button"
