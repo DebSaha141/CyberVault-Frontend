@@ -9,35 +9,38 @@ const TestimonialSection = () => {
     useEffect(() => {
         const track = carouselRef.current;
 
-        // Duplicate testimonials to ensure seamless scrolling
-        const duplicateContent = () => {
-            track.innerHTML += track.innerHTML;
+        // Duplicate testimonials dynamically for seamless loop
+        const duplicateTestimonials = () => {
+            const items = Array.from(track.children);
+            items.forEach((item) => {
+                const clone = item.cloneNode(true);
+                track.appendChild(clone);
+            });
         };
 
-        duplicateContent();
+        duplicateTestimonials();
 
+        // Start animation
         let scrollAmount = 0;
+        const scrollSpeed = 0.5; // Adjust speed here
 
-        // Smooth infinite scrolling
-        const scrollCarousel = () => {
-            scrollAmount += 1; // Scroll speed
+        const scroll = () => {
+            scrollAmount += scrollSpeed;
             if (scrollAmount >= track.scrollWidth / 2) {
-                scrollAmount = 0; // Reset when halfway done
+                scrollAmount = 0; // Reset without any glitch
             }
             track.style.transform = `translateX(-${scrollAmount}px)`;
-            requestAnimationFrame(scrollCarousel); // Smooth animation loop
+            requestAnimationFrame(scroll);
         };
 
-        scrollCarousel();
+        scroll();
 
-        return () => {
-            cancelAnimationFrame(scrollCarousel);
-        };
+        return () => cancelAnimationFrame(scroll);
     }, []);
 
     return (
         <section className="testimonial-section">
-            <h2 className="testimonial-heading">TESTIMONIAL</h2>
+            <h2 className="testimonial-heading">TESTIMONIALS</h2>
             <div className="carousel">
                 <div className="carousel-track" ref={carouselRef}>
                     {testimonials.map((testimonial, index) => (

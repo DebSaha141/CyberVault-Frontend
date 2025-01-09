@@ -1,7 +1,5 @@
-// OneTestimonial.jsx
 import React from 'react';
 import './testimonial.scss';
-
 
 const OneTestimonial = ({ text, author }) => {
     return (
