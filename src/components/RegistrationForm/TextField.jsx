@@ -1,5 +1,5 @@
-import styles from './styles/registrationForm.module.scss'
-
+import React from "react";
+import styles from './styles/registrationForm.module.scss';
 
 const getValidationRules = (field) => {
   const rules = {};
@@ -28,26 +28,35 @@ const getValidationRules = (field) => {
   return rules;
 };
 
-function TextField({ field, register, errors }) {
-  
-  return <div className={styles.cyberformgroup}>
-    <label htmlFor={field.fieldName} className="cyber-label">
-      {field.label.toUpperCase()}
-    </label>
-    <input
-      className={styles.cyberinput}
-      type="text"
-      id={field.fieldName}
-      placeholder={field.placeholder}
-      {...register(field.fieldName, {
-        required: field.required && `${field.label} is required`,
-        ...getValidationRules(field)
-      })}
-    />
-    {errors[field.fieldName] && (
-      <p className={styles.cybererror}>{errors[field.fieldName]?.message}</p>
-    )}
-  </div>
+function TextField({ field, register, errors, onChange }) {
+  return (
+    <div className={styles.cyberformgroup}>
+      <label htmlFor={field.fieldName} className="cyber-label">
+        {field.label.toUpperCase()}
+      </label>
+      <input
+        className={styles.cyberinput}
+        type="text"
+        id={field.fieldName}
+        placeholder={field.placeholder}
+        {...register(field.fieldName, {
+          required: field.required && `${field.label} is required`,
+          ...getValidationRules(field),
+          onChange: (e) => {
+            if (onChange) {
+              onChange(e); 
+            }
+          },
+        })}
+      />
+      {errors[field.fieldName] && (
+        <p className={styles.cybererror}>
+          {errors[field.fieldName]?.message}
+        </p>
+      )}
+    </div>
+  );
 }
 
-export default TextField
+
+export default TextField;

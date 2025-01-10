@@ -1,87 +1,140 @@
-import React, { useState } from 'react'
-import { useForm } from 'react-hook-form'
-import formData from '../../data/test/form.json'
-import TextField from './TextField'
-import SelectField from './SelectField'
-import CheckboxField from './CheckboxField'
-import IncrementDecrementField from './Increment-Decrement'
-import styles from './styles/RegistrationForm.module.scss'
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import formData from "../../data/test/form.json";
+import TextField from "./TextField";
+import SelectField from "./SelectField";
+import CheckboxField from "./CheckboxField";
+import IncrementDecrementField from "./Increment-Decrement";
+import styles from "./styles/RegistrationForm.module.scss";
 
 const RegistrationForm = () => {
   const {
     register,
     handleSubmit,
     trigger,
+    watch,
     reset,
+    clearErrors,
     formState: { errors },
-  } = useForm()
-  const [currentStep, setCurrentStep] = useState(0)
+  } = useForm();
+  const [currentStep, setCurrentStep] = useState(0);
 
   const onSubmit = (data) => {
-    console.log('Form Data:', data)
-    reset()
-  }
+    console.log("Form Data:", data);
+    reset();
+  };
 
-  const handleNext = async () => {
-    const isValid = await trigger(
-      formData.sections[currentStep].fields.map((field) => field.fieldName),
-    )
+  const currentSection = formData.sections[currentStep];
+  const isRequiredSection = formData.requiredSection.includes(
+    currentSection.sectionTitle
+  );
+
+  const watchSectionFields = currentSection.fields.map((field) =>
+    watch(field.fieldName)
+  );
+
+  const isSectionFilled = watchSectionFields.some((value) => 
+    value && (typeof value === 'string' ? value.trim().length > 0 : value.length > 0)
+  );
+
+  const handleFieldChange = (fieldName, value) => {
+    if (!isRequiredSection && !value?.trim()) {
+      // console.log("Clearing errors for", fieldName);
+
+      clearErrors();
+    }
+  };
+
+  const handleNext = async (e) => {
+    e.preventDefault();
+    
+    const fieldsToValidate = isSectionFilled || isRequiredSection
+      ? currentSection.fields.map((field) => field.fieldName)
+      : [];
+
+    if (!isRequiredSection && !isSectionFilled) {
+      currentSection.fields.forEach((field) => {
+        // console.log("Meow")
+        clearErrors();
+      });
+      setCurrentStep((prev) => prev + 1);
+      return;
+    }
+
+    const isValid = await trigger(fieldsToValidate);
 
     if (isValid) {
-      setCurrentStep((prev) => prev + 1)
+      if (currentStep < formData.sections.length - 1) {
+        setCurrentStep((prev) => prev + 1);
+      }
     }
-  }
+  };
 
-  const handlePrevious = () => {
-    if (currentStep > 0) {
-      setCurrentStep((prev) => prev - 1)
+  const handlePrevious = (e) => {
+    e.preventDefault();
+    setCurrentStep((prev) => Math.max(0, prev - 1));
+  };
+
+  const handleFormSubmit = (e) => {
+    if (currentStep !== formData.sections.length - 1) {
+      e.preventDefault();
+      return;
     }
-  }
+    handleSubmit(onSubmit)(e);
+  };
 
   return (
-    <form className={styles.cybercontainer} onSubmit={handleSubmit(onSubmit)}>
+    <form 
+      className={styles.cybercontainer} 
+      onSubmit={handleFormSubmit}
+    >
       <h1 className={styles.cybertitle}>{formData.infoObject.formTitle}</h1>
       <p className={styles.cybersubtitle}>{formData.infoObject.description}</p>
 
       <div>
-        <h2 className={styles.cybertitle}>
-          {formData.sections[currentStep].sectionTitle}
-        </h2>
-        {formData.sections[currentStep].fields.map((field, index) => {
+        <h2 className={styles.cybertitle}>{currentSection.sectionTitle}</h2>
+        {currentSection.fields.map((field) => {
           switch (field.type) {
-            case 'text':
+            case "text":
               return (
                 <TextField
-                  key={index}
+                  key={`${currentStep}-${field.fieldName}`}
                   field={field}
                   register={register}
                   errors={errors}
+                  onChange={(e) => handleFieldChange(field.fieldName, e.target.value)}
                 />
-              )
-            case 'select':
+              );
+            case "select":
               return (
                 <SelectField
-                  key={index}
+                  key={`${currentStep}-${field.fieldName}`}
+                  field={field}
+                  register={register}
+                  errors={errors}
+                  onChange={(e) => handleFieldChange(field.fieldName, e.target.value)}
+                />
+              );
+            case "checkbox":
+              return (
+                <CheckboxField
+                  key={`${currentStep}-${field.fieldName}`}
                   field={field}
                   register={register}
                   errors={errors}
                 />
-              )
-            case 'checkbox':
-              return (
-                <CheckboxField key={index} field={field} register={register} />
-              )
-            case 'increment-decrement':
+              );
+            case "increment-decrement":
               return (
                 <IncrementDecrementField
-                  key={index}
+                  key={`${currentStep}-${field.fieldName}`}
                   field={field}
                   register={register}
                   errors={errors}
                 />
-              )
+              );
             default:
-              return null
+              return null;
           }
         })}
       </div>
@@ -110,7 +163,7 @@ const RegistrationForm = () => {
         )}
       </div>
     </form>
-  )
-}
+  );
+};
 
-export default RegistrationForm
+export default RegistrationForm;

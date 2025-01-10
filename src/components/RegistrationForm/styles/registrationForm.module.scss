@@ -55,6 +55,7 @@ body {
   margin-right: auto;
   margin-top: 0.5rem;
   font-size: 0.9rem;
+  padding-bottom: 0px;
 }
 
 .cyberformgroup label {
@@ -68,7 +69,7 @@ body {
 }
 
 .cyberinput {
-  width: 92%;
+  width: 100%;
   padding: 1.2rem;
   background-color: black;
   border: 1px solid green;
@@ -82,7 +83,7 @@ body {
 }
 
 .cyberselect{
-  width: 92%;
+  width: 100%;
   padding: 1.2rem;
   background-color: black;
   border: 1px solid green;
@@ -110,7 +111,7 @@ body {
 }
 
 .cyberIncrementDecrementInput {
-  width: 110%;
+  width: 100%;
   text-align: center;
   padding: 1.2rem;
   background-color: black;
@@ -238,11 +239,11 @@ body {
   }
 
   .cyberselect{
-    width: 103%;
+    width: 100%;
   }
 
   .cyberinput {
-    width: 95%;
+    width: 100%;
   }
 
   .cybersubmitbutton {
