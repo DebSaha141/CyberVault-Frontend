@@ -13,14 +13,9 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: radial-gradient(
-    circle, 
-    rgba(60, 60, 60, 0.4) 0%, 
-    rgba(40, 40,40, 1) 50%, 
-    rgba(0.5, 0.5, 0.5, 1) 100%
-  ); 
+  background: radial-gradient(ellipse, rgb(0 0 0 / 70%) 0%, rgb(1 1 1) 60%, rgb(0 0 0) 60%); 
   color: #fff;
-  padding: 40px 20px;
+  padding: 5px 10px;
   overflow: hidden; 
 }
 
@@ -32,7 +27,7 @@
   line-height: 1.1; 
   letter-spacing: 4%; 
   text-align: center; 
-  margin-bottom: 40px;  
+  margin-bottom: 1rem;  
 }
 
 .sponsor-images {
@@ -53,5 +48,5 @@
   // padding: 10px;  
   border: 1px solid rgb(95, 95, 95);
   border-radius: 10px;  
-  box-shadow: 0 4px 4px rgba(249, 247, 247, 0.1);  
+  box-shadow: 0 4px 4px rgba(100, 100, 100, 0.1);  
 }
