@@ -32,12 +32,14 @@ body {
   color: white;
   margin-bottom: 1rem;
   text-align: center;
+  margin-bottom: 2rem;
 }
 
 .cybersubtitle {
   color: var(--cyber-dark-green);
   margin-bottom: 2rem;
   text-align: center;
+  font-size: 1.5rem;
 }
 
 .cyberformgroup {
@@ -56,7 +58,10 @@ body {
   margin-top: 0.5rem;
   font-size: 0.9rem;
   padding-bottom: 0px;
+  color: white;
 }
+
+
 
 .cyberformgroup label {
   display: block;
@@ -66,6 +71,15 @@ body {
   margin-bottom: 0.5rem;
   font-size: 1rem;
   color: var(--cyber-green);
+}
+
+.cybercheckboxgroup label{
+  display: flex;
+  align-items: center;
+  gap: 8px; 
+  color: var(--cyber-green);
+  font-size: 16px;
+  width: 100%;
 }
 
 .cyberinput {
@@ -81,6 +95,57 @@ body {
   font-size: 1rem;
   transition: all 0.3s ease;
 }
+
+.cybercheckboxgroup{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  width: 100%;
+
+  .cyberinput{
+    width: auto;
+  }
+}
+
+.formContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  column-gap: 4rem;
+}
+
+.fileUploadContainer {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+
+  label {
+    background-color: var(--cyber-green);
+    color: black;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: bold;
+    border: 2px solid var(--cyber-green);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background-color: black;
+      color: var(--cyber-green);
+    }
+  }
+
+  .fileInput {
+    display: none;
+  }
+}
+
+
 
 .cyberselect{
   width: 100%;
@@ -158,7 +223,6 @@ body {
   cursor: not-allowed;
 }
 
-
 .cyberinput:focus,
 .cyberselect:focus {
   outline: none;
@@ -207,6 +271,8 @@ body {
   background-color: var(--cyber-blue);
   box-shadow: 0 0 20px var(--cyber-blue);
 }
+
+
 
 /* Responsive Design */
 @media (max-width: 768px) {

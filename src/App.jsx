@@ -8,28 +8,31 @@ import Hero from "./components/Hero/Hero"
 import NotFound from "./components/NotFound/notFound";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import About from './components/About/about.jsx';
-// import RegistrationForm from './components/RegistrationForm/RegistrationForm.jsx';
+import RegistrationForm from './components/RegistrationForm/RegistrationForm.jsx';
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={
-          <div>
-            <Navbar />
-            <Hero />
-            <About />
-            <Sponsors />
-            <LiveEventComponent />
-            <TestimonialSection />
-            <Footer />
-          </div>
-        } />
+    // <Router>
+    //   <Routes>
+    //     <Route path="/" element={
+    //       <div>
+    //         <Navbar />
+    //         <Hero />
+    //         <About />
+    //         <Sponsors />
+    //         <LiveEventComponent />
+    //         <TestimonialSection />
+    //         <Footer />
+    //       </div>
+    //     } />
         
-        {/* Fallback Route for 404 */}
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </Router>
+    //     {/* Fallback Route for 404 */}
+    //     <Route path="*" element={<NotFound />} />
+    //   </Routes>
+    // </Router>
+    <>
+      <RegistrationForm/>
+    </>
   );
 }
 

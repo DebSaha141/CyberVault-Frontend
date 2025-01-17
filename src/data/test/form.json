@@ -150,6 +150,12 @@
             "maximumSelect": 2
           },
           "required": false
+        },
+        {
+          "fieldName": "fileUpload",
+          "type": "fileUpload",
+          "label": "Upload Your file",
+          "required": false
         }
       ]
     }

@@ -5,7 +5,7 @@ const CheckboxField = ({ field, register }) => (
     <label>{field.label.toUpperCase()}</label>
     {field.options.map((option, index) => (
       <div key={index} className={styles.cybercheckboxgroup}>
-        <label htmlFor={`${field.fieldName}-${index}`}>
+        <label htmlFor={`${field.fieldName}-${index}`} className={styles.cyberCheckLabel}>
           <input
             className={styles.cyberinput}
             type="checkbox"

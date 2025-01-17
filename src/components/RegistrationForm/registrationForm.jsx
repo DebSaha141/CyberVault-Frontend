@@ -4,6 +4,7 @@ import formData from "../../data/test/form.json";
 import TextField from "./TextField";
 import SelectField from "./SelectField";
 import CheckboxField from "./CheckboxField";
+import FileUpload from "./FileUpload";
 import IncrementDecrementField from "./Increment-Decrement";
 import styles from "./styles/RegistrationForm.module.scss";
 
@@ -83,6 +84,8 @@ const RegistrationForm = () => {
     handleSubmit(onSubmit)(e);
   };
 
+  const triggerGrid = currentSection.fields.length > 7;
+
   return (
     <form 
       className={styles.cybercontainer} 
@@ -93,7 +96,9 @@ const RegistrationForm = () => {
 
       <div>
         <h2 className={styles.cybertitle}>{currentSection.sectionTitle}</h2>
-        {currentSection.fields.map((field) => {
+        <div className={triggerGrid?styles.formContainer:""}>
+          {currentSection.fields.map((field) => {
+
           switch (field.type) {
             case "text":
               return (
@@ -114,6 +119,15 @@ const RegistrationForm = () => {
                   errors={errors}
                   onChange={(e) => handleFieldChange(field.fieldName, e.target.value)}
                 />
+              );
+            case "fileUpload":
+              return (
+                <FileUpload
+                  key={`${currentStep}-${field.fieldName}`}
+                  field={field}
+                  register={register}
+                  errors={errors}
+                  onChange={(e) => handleFieldChange(field.fieldName, e.target.value)} />
               );
             case "checkbox":
               return (
@@ -136,7 +150,9 @@ const RegistrationForm = () => {
             default:
               return null;
           }
-        })}
+        }
+        )}
+          </div>
       </div>
       <div>
         {currentStep > 0 && (
@@ -161,8 +177,9 @@ const RegistrationForm = () => {
             Submit
           </button>
         )}
-      </div>
+        </div>
     </form>
+
   );
 };
 
