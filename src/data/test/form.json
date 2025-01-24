@@ -147,6 +147,7 @@
           "label": "Receive Updates",
           "options": ["Newsletters", "Promotions", "Event Invitations"],
           "validation": {
+            "minimumselect":1,
             "maximumSelect": 2
           },
           "required": false
@@ -154,7 +155,7 @@
         {
           "fieldName": "fileUpload",
           "type": "fileUpload",
-          "label": "Upload Your file",
+          "label": "Upload File",
           "required": false
         }
       ]

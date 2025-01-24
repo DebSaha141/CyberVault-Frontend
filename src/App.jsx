@@ -12,30 +12,31 @@ import RegistrationForm from './components/RegistrationForm/RegistrationForm.jsx
 
 function App() {
   return (
-    // <Router>
-    //   <Routes>
-    //     <Route path="/" element={
-    //       <div>
-    //         <Navbar />
-    //         <Hero />
-    //         <About />
-    //         <Sponsors />
-    //         <LiveEventComponent />
-    //         <TestimonialSection />
-    //         <Footer />
-    //       </div>
-    //     } />
+    <Router>
+      <Routes>
+        <Route path="/" element={
+          <div>
+            <Navbar />
+            <Hero />
+            <About />
+            <Sponsors />
+            <LiveEventComponent />
+            <TestimonialSection />
+            {/* <Footer /> */}
+          </div>
+        } />
         
-    //     {/* Fallback Route for 404 */}
-    //     <Route path="*" element={<NotFound />} />
-    //   </Routes>
-    // </Router>
-    <>
-      <RegistrationForm/>
-    </>
+        {/* Fallback Route for 404 */}
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </Router>
+    // <>
+    //   <RegistrationForm/>
+    // </>
   );
 }
 
 export default App;
 
 
+//api/form/:formid
