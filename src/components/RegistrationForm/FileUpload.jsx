@@ -8,7 +8,7 @@
 //     const file = event.target.files[0];
 //     setSelectedFile(file);
 //     // if (onFileChange) {
-//     //   onFileChange(file); // Pass the file to the parent component if needed
+//     //   onFileChange(file);
 //     // }
 //   };
 
@@ -102,6 +102,7 @@ const FileUpload = ({ field, register, error }) => {
           </p>
           <input
             type="file"
+            name="image"
             className={styles.fileInput}
             onChange={handleFileChange}
             ref={fileInputRef}
