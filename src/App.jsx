@@ -9,6 +9,8 @@ import NotFound from "./components/NotFound/notFound";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import About from './components/About/about.jsx';
 import RegistrationForm from './components/RegistrationForm/RegistrationForm.jsx';
+import Login from "./pages/auth/SignIn.jsx";
+import SignUp from './pages/auth/SignUp.jsx';
 
 function App() {
   return (
@@ -25,6 +27,24 @@ function App() {
             {/* <Footer /> */}
           </div>
         } />
+
+        <Route path="/login" element={
+          <div>
+            <Navbar />
+            <Login />
+          </div>} />
+        
+          <Route path="/signup" element={
+          <div>
+            <Navbar />
+            <SignUp />
+          </div>} />
+        
+          <Route path="/form" element={
+          <div>
+            <Navbar />
+            <RegistrationForm />
+          </div>} />
         
         {/* Fallback Route for 404 */}
         <Route path="*" element={<NotFound />} />

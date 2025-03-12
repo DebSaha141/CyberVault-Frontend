@@ -13,7 +13,7 @@
   margin-bottom: 1rem;
   font-weight: bold;
   text-align: center;
-
+  margin-top: 2rem;
   background: linear-gradient(#00b508, #11ba18, #ffffff);
   -webkit-background-clip: text;
   background-clip: text;
@@ -78,6 +78,7 @@
 
   p {
     font-size: 14px;
+    margin-bottom: 20px;
     span {
       color: #4caf50;
       cursor: pointer;
