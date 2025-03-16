@@ -43,7 +43,7 @@ const TestimonialSection = () => {
             <h2 className="testimonial-heading">TESTIMONIALS</h2>
             <div className="carousel">
                 <div className="carousel-track" ref={carouselRef}>
-                    {testimonials.map((testimonial, index) => (
+                    {testimonials.concat(testimonials).map((testimonial, index) => (
                         <OneTestimonial
                             key={index}
                             text={testimonial.text}

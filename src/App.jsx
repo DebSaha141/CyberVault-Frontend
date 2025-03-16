@@ -1,38 +1,37 @@
 import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from './components/navbar/Navbar.jsx';
 import Footer from './components/Footer';
 import NotFound from "./components/NotFound/notFound";
-import { BrowserRouter as Router, Routes, Route, Outlet } from "react-router-dom";
+import About from './components/About/about.jsx';
+import RegistrationForm from './components/RegistrationForm/registrationForm.jsx';
 import Home from './pages/home/home.jsx';
-const Layout = () => {
+
+function Layout({ children }) {
   return (
-    <div>
+    <>
       <Navbar />
-      <Outlet />
-      <Footer />
-    </div>
-  )
+      {children}
+      {/* <Footer /> */}
+    </>
+  );
 }
 
 function App() {
   return (
     <Router>
-      <Routes>
-        <Route element={<Layout />}>
+      <Layout>
+        <Routes>
           <Route path="/" element={
-            <Home />
-          }/>
-          <Route path="/team" element={
-            <NotFound />
-          }/>
-
+              <Home />
+          } />
+          {/* <Route path="/form/:formid" element={<RegistrationForm />} /> */}
+          <Route path="/form" element={<RegistrationForm />} />
           <Route path="*" element={<NotFound />} />
-        </Route>
-      </Routes>
+        </Routes>
+      </Layout>
     </Router>
   );
 }
 
 export default App;
-
-
