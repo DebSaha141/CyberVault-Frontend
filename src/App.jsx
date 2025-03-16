@@ -1,18 +1,17 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from './components/navbar/Navbar.jsx';
-import Footer from './components/Footer';
 import NotFound from "./components/NotFound/notFound";
-import About from './components/About/about.jsx';
 import RegistrationForm from './components/RegistrationForm/registrationForm.jsx';
 import Home from './pages/home/home.jsx';
+import Footer from './components/Footer/Footer.jsx';
 
 function Layout({ children }) {
   return (
     <>
       <Navbar />
       {children}
-      {/* <Footer /> */}
+      <Footer />
     </>
   );
 }

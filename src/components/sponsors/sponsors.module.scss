@@ -1,57 +1,85 @@
 @font-face {
   font-family: 'CYGUN';
-  src: 
-       url('../../assets/fonts/cygun.ttf') format('truetype');
+  src: url('../../assets/fonts/cygun.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
-
-
 
 .sponsor-section {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: radial-gradient(
-    circle, 
-    rgba(60, 60, 60, 0.4) 0%, 
-    rgba(40, 40,40, 1) 50%, 
-    rgba(0.5, 0.5, 0.5, 1) 100%
-  ); 
+  background: radial-gradient(ellipse, rgb(0 0 0 / 70%) 0%, rgb(1 1 1) 60%, rgb(0 0 0) 60%);
   color: #fff;
-  padding: 40px 20px;
-  overflow: hidden; 
+  padding: 20px;
+  overflow: hidden;
+  width: 100%;
 }
-
 
 .sponsor-title {
-  font-family:'CYGUN', sans-serif; 
+  font-family: 'CYGUN', sans-serif;
   font-weight: 400;
   font-size: 90px;
-  line-height: 1.1; 
-  letter-spacing: 4%; 
-  text-align: center; 
-  margin-bottom: 40px;  
+  line-height: 1.1;
+  letter-spacing: 4%;
+  text-align: center;
+  margin-bottom: 1rem;
 }
 
+/* Desktop Layout: All in One Row */
 .sponsor-images {
-  display: grid;  
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));  
-  gap: 20px;  
-  width: 90%;  
-  max-width: 1200px;  
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 90px;
+  width: 90%;
+  max-width: 1200px;
 }
 
 .sponsor-image {
-  width: 90%;  
-  // height: auto;  
-  height:50%;
-
-  object-fit: contain;  
-  background-color: #000000;  
-  // padding: 10px;  
+  // width: 200px; /* Fixed width to keep consistency */
+  // height: auto;
+  object-fit: contain;
+  background-color: #000000;
   border: 1px solid rgb(95, 95, 95);
-  border-radius: 10px;  
-  box-shadow: 0 4px 4px rgba(249, 247, 247, 0.1);  
+  border-radius: 10px;
+  box-shadow: 0 4px 4px rgba(100, 100, 100, 0.1);
+}
+.sponsor-images img{
+  width:150px;
+  height:100px
+}
+/* Tablet View: Slightly Smaller Images */
+@media (max-width: 1024px) {
+  .sponsor-title {
+    font-size: 70px;
+  }
+
+  .sponsor-images {
+    gap: 20px;
+  }
+
+  .sponsor-image {
+    width: 180px;
+  }
+}
+
+/* Mobile View: Two Columns */
+@media (max-width: 600px) {
+  .sponsor-title {
+    font-size: 50px;
+  }
+
+  .sponsor-images {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Two columns */
+    width: 90%;
+    gap: 15px;
+  }
+
+  .sponsor-image {
+    width: 100%;
+  }
 }
