@@ -1,16 +1,36 @@
-import Sponsors from "./components/sponsors/Sponsors"
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Navbar from './components/navbar/Navbar.jsx';
+import NotFound from "./components/NotFound/notFound";
+import RegistrationForm from './components/RegistrationForm/registrationForm.jsx';
+import Home from './pages/home/home.jsx';
+import Footer from './components/Footer/Footer.jsx';
 
-import TestimonialSection from "./components/Testimonials/TestimonialSection"
-
-function App() {
-
+function Layout({ children }) {
   return (
     <>
-     <h1>CyberVault Frontend</h1>
-     <Sponsors/>
-     <TestimonialSection/>
+      <Navbar />
+      {children}
+      <Footer />
     </>
-  )
+  );
 }
 
-export default App
+function App() {
+  return (
+    <Router>
+      <Layout>
+        <Routes>
+          <Route path="/" element={
+              <Home />
+          } />
+          {/* <Route path="/form/:formid" element={<RegistrationForm />} /> */}
+          <Route path="/form" element={<RegistrationForm />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Layout>
+    </Router>
+  );
+}
+
+export default App;

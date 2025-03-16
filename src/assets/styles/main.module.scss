@@ -1,3 +1,9 @@
-@import 'base/variables';
-@import 'base/mixins';
-@import 'base/globals';
+@import 'base/variables.module.scss';
+@import 'base/mixins.module.scss';
+@import 'base/globals.module.scss';
+
+
+.container {
+  background-color: $primary-color;
+  color: $secondary-color;
+}
