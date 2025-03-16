@@ -1,11 +1,11 @@
 import React from 'react';
-import './testimonial.scss';
+import styles from './testimonial.module.scss';
 
 const OneTestimonial = ({ text, author }) => {
     return (
-        <div className="testimonial-card">
-            <p className="testimonial-text">"{text}"</p>
-            <p className="testimonial-author">- {author}</p>
+        <div className={styles.testimonialCard}>
+            <p className={styles.testimonialText}>"{text}"</p>
+            <p className={styles.testimonialAuthor}>- {author}</p>
         </div>
     );
 };

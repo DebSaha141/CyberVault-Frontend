@@ -5,6 +5,7 @@ import LoginButton from './LoginButton'
 import NavList from './NavList'
 import Hamburger from './Hamburger'
 import api from '../../services/api'
+import { Link } from 'react-router-dom'
 
 // Check comment
 const Navbar = () => {
@@ -40,7 +41,9 @@ const Navbar = () => {
           <img src={Logo} alt="logo" className={styles.logoImage} />
         </div>
         <NavList />
-        <LoginButton authStatus={authStatus} />
+        <Link to='/login'>
+          <LoginButton authStatus={authStatus} />
+        </Link>
         <Hamburger authStatus={authStatus} />
       </div>
     </nav>

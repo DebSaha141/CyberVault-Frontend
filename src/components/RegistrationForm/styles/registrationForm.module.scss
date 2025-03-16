@@ -8,16 +8,14 @@
   --cyber-pink: #ff00ff;
 }
 
-body {
-  background-image: linear-gradient(to top, #015801, #000000 40%);
+
+.cybercontainer {
+  background-image: linear-gradient(to top, #015801, #000000 50%);
   color: var(--cyber-green);
   font-family: 'Orbitron', sans-serif;
   margin: 0;
   padding: 0;
   overflow-x: hidden;
-}
-
-.cybercontainer {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -42,7 +40,7 @@ body {
   font-size: 1.5rem;
 }
 
-.cyberformgroup {
+.cyberFormGroup {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -69,6 +67,7 @@ body {
   padding: 0;
   margin-right: auto;
   margin-bottom: 0.5rem;
+  margin-top: 1rem;
   font-size: 1rem;
   color: var(--cyber-green);
 }
@@ -109,12 +108,20 @@ body {
 }
 
 .formContainer {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(250px, 1fr)); 
+  gap: .5rem 6rem;
   justify-content: center;
   align-items: center;
-  column-gap: 4rem;
+  width: 100%;
+  max-width: 1200px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 1.5rem; 
+  }
 }
+
 
 .fileUploadContainer {
   display: flex;
@@ -251,6 +258,7 @@ body {
   border: none;
   cursor: pointer;
   font-weight: bold;
+  margin-top: 40px;
   font-family: 'Orbitron', sans-serif;
   position: relative;
   overflow: hidden;

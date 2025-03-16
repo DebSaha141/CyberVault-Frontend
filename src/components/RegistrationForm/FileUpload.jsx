@@ -127,6 +127,7 @@ const FileUpload = ({ field, register, error }) => {
         <button
           className={styles.cybersubmitbutton}
           disabled={!file || uploadProgress < 100}
+          // onClick={handleFileChange}
         >
           Upload
         </button>
