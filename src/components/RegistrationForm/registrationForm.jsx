@@ -6,7 +6,7 @@ import SelectField from "./SelectField";
 import CheckboxField from "./CheckboxField";
 import FileUpload from "./FileUpload";
 import IncrementDecrementField from "./Increment-Decrement";
-import styles from "./styles/RegistrationForm.module.scss";
+import styles from "./styles/registrationForm.module.scss";
 
 const RegistrationForm = () => {
   const {
