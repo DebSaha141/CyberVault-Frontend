@@ -13,7 +13,9 @@ const NavList = () => {
         <Link to='/team'>
           <li>Team</li>
         </Link>
-        <li>About</li>
+        <Link to='/about'>
+          <li>About</li>
+        </Link>
       </ul>
     </div>
   )
