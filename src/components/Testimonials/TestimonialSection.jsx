@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import OneTestimonial from './OneTestimonial';
 import testimonials from '../../data/test/testimonial.js';
-import './testimonial.scss';
+import styles from './testimonial.module.scss';
 
 const TestimonialSection = () => {
     const carouselRef = useRef(null);
@@ -39,10 +39,10 @@ const TestimonialSection = () => {
     }, []);
 
     return (
-        <section className="testimonial-section">
-            <h2 className="testimonial-heading">TESTIMONIALS</h2>
-            <div className="carousel">
-                <div className="carousel-track" ref={carouselRef}>
+        <section className={styles.testimonialSection}>
+            <h2 className={styles.testimonialHeading}>TESTIMONIALS</h2>
+            <div className={styles.carousel}>
+                <div className={styles.carouselTrack} ref={carouselRef}>
                     {testimonials.map((testimonial, index) => (
                         <OneTestimonial
                             key={index}

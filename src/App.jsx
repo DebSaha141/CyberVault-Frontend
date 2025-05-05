@@ -1,39 +1,43 @@
 import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from './components/navbar/Navbar.jsx';
-import Footer from './components/Footer';
 import NotFound from "./components/NotFound/notFound";
-import { BrowserRouter as Router, Routes, Route, Outlet } from "react-router-dom";
+import RegistrationForm from './components/RegistrationForm/registrationForm.jsx';
 import Home from './pages/home/home.jsx';
 import Team from './pages/team/Team.jsx';
-const Layout = () => {
+import Footer from './components/Footer/Footer.jsx';
+import About from './pages/about/about.jsx';
+import Login from './pages/auth/SignIn.jsx';
+import SignUp from './pages/auth/SignUp.jsx';
+
+function Layout({ children }) {
   return (
-    <div>
+    <>
       <Navbar />
-      <Outlet />
+      {children}
       <Footer />
-    </div>
-  )
+    </>
+  );
 }
 
 function App() {
   return (
     <Router>
-      <Routes>
-        <Route element={<Layout />}>
-          <Route path="/" element={
-            <Home />
-          }/>
-          <Route path="/team" element={
-            <Team/>
-          }/>
-
+      <Layout>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/team" element={<Team />} />
+          
+          {/* <Route path="/form/:formid" element={<RegistrationForm />} /> */}
+          <Route path="/form" element={<RegistrationForm />} />
           <Route path="*" element={<NotFound />} />
-        </Route>
-      </Routes>
+        </Routes>
+      </Layout>
     </Router>
   );
 }
 
 export default App;
-
-

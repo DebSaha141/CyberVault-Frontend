@@ -1,0 +1,297 @@
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap");
+
+:root {
+  --cyber-black: #000000;
+  --cyber-green: #00ff00;
+  --cyber-dark-green: #006400;
+  --cyber-blue: #00ffff;
+  --cyber-pink: #ff00ff;
+}
+
+.signupContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: linear-gradient(to top, #015801, #000000 60%);
+  color: var(--cyber-green);
+  font-family: "Orbitron", sans-serif;
+  margin: 0;
+  padding: 0;
+  padding: 20px 0;
+  overflow: hidden;
+  // background: linear-gradient(to bottom, #000000, #008000);
+
+  .signinImage {
+    // flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: left;
+    max-width: 40%;
+    // background-color: red;
+
+    img {
+      max-width: 100%;
+      border-radius: 8px;
+    }
+
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
+
+  .signinFormContainer {
+    flex: 1;
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 500px;
+
+    .cyberTitle {
+      font-size: 2.8rem;
+      margin-bottom: 3rem;
+      font-weight: bold;
+      text-align: center;
+      color: var(--cyber-green);
+      background: radial-gradient( #ffffff,var(--cyber-green));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
+    }
+
+    .cyberSubtitle {
+      color: var(--cyber-dark-green);
+      margin-bottom: 2rem;
+      text-align: center;
+      font-size: 1.5rem;
+    }
+
+    .cyberFormGroup {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      width: 100%;
+      max-width: 500px;
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+
+    .cyberError {
+      display: block;
+      margin-right: auto;
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+      padding-bottom: 0px;
+      color: white;
+    }
+
+    .cyberForm {
+      width: 80%;
+    }
+
+    .cyberFormGroup label {
+      display: block;
+      margin: 0;
+      padding: 0;
+      margin-right: auto;
+      margin-bottom: 0.5rem;
+      font-size: 1rem;
+      color: var(--cyber-green);
+    }
+
+    .cyberInput {
+      width: 100%;
+      padding: 1.2rem;
+      background-color: black;
+      border: 1px solid green;
+      border-left: 2px solid green;
+      border-right: 2px solid green;
+      border-radius: 4px;
+      color: white;
+      font-family: "Orbitron", sans-serif;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .cyberInput:focus {
+      outline: none;
+      box-shadow: 0 0 10px var(--cyber-green);
+    }
+
+    .cyberInput::placeholder {
+      color: rgba(0, 255, 0, 0.5);
+    }
+
+    .buttonContainer {
+      display: flex;
+      justify-content: center;
+      gap: 50px;
+      margin-top: 2.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .cyberSubmitButton {
+      padding: 15px 32px;
+      border-top-right-radius: 10px;
+      border-bottom-left-radius: 10px;
+      background-color: var(--cyber-green);
+      color: var(--cyber-black);
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 1rem;
+      font-family: "Orbitron", sans-serif;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      clip-path: polygon(
+        0% 0%,
+        90% 0%,
+        100% 40%,
+        100% 0%,
+        100% 100%,
+        10% 100%,
+        0% 70%
+      );
+      margin-left: 20px;
+    }
+
+    .cyberSubmitButton:hover {
+      background-color: var(--cyber-blue);
+      box-shadow: 0 0 20px var(--cyber-blue);
+    }
+
+    .cyberSignupButton {
+      padding: 15px 32px;
+      border-top-right-radius: 10px;
+      border-bottom-left-radius: 10px;
+      background-color: var(--cyber-green);
+      color: var(--cyber-black);
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 1rem;
+      font-family: "Orbitron", sans-serif;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      clip-path: polygon(
+        0% 0%,
+        90% 0%,
+        100% 40%,
+        100% 0%,
+        100% 100%,
+        10% 100%,
+        0% 70%
+      );
+      margin-left: 20px;
+    }
+
+    .cyberSignupButton:hover {
+      background-color: var(--cyber-blue);
+      box-shadow: 0 0 20px var(--cyber-blue);
+    }
+
+    .registerText {
+      font-size: 15px;
+      color: var(--cyber-green);
+      margin-bottom: 5px;
+    }
+
+    .registerLink {
+      color: white;
+      text-decoration: none;
+    }
+
+    .registerLink:hover {
+      color: var(--cyber-blue);
+    }
+
+    @media (max-width: 768px) {
+      .cybertitle {
+        font-size: 2rem;
+      }
+
+      .cyberFormGroup label {
+        margin-right: auto;
+        font-size: 0.8rem;
+      }
+
+      .cyberError {
+        margin-right: auto;
+        font-size: 0.8rem;
+      }
+
+      .buttonContainer {
+        gap: 10px;
+      }
+
+      .cyberForm {
+        width: 80%;
+      }
+
+      .cyberSubmitButton {
+        padding: 12px 24px;
+        font-size: 0.9rem;
+      }
+
+      .cyberSignupButton {
+        padding: 12px 24px;
+        font-size: 0.9rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .cyberTitle {
+        font-size: 1.8rem;
+      }
+
+      .cyberSubtitle {
+        font-size: 1rem;
+      }
+
+      .cyberInput,
+      .cyberSelect {
+        padding: 0.75rem;
+      }
+
+      .cyberFormGroup label {
+        margin-right: auto;
+        font-size: 0.8rem;
+      }
+
+      .cyberError {
+        font-size: 0.8rem;
+      }
+
+      .cyberSelect {
+        width: 100%;
+      }
+
+      .cyberInput {
+        width: 100%;
+      }
+
+      .cyberSubmitButton {
+        padding: 10px 20px;
+        font-size: 0.8rem;
+      }
+
+      .cyberSignupButton {
+        padding: 10px 20px;
+        font-size: 0.8rem;
+      }
+
+      .registerText {
+        font-size: 0.8rem;
+      }
+
+      .registerLink {
+        font-size: 0.8rem;
+      }
+    }
+  }
+}
