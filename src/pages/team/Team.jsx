@@ -3,7 +3,7 @@ import styles from './Team.module.scss'
 import core from '../../../src/assets/images/core.svg'
 import tech from '../../../src/assets/images/tech.svg'
 import hr from '../../../src/assets/images/hr.svg'
-import dropdown from '../../../src/assets/images/polygon 2.svg'
+import dropdown from '../../../src/assets/images/polygon2.svg'
 import api from '../../services/api'
 
 const Team = () => {
