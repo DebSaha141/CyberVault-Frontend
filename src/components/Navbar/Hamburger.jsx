@@ -1,4 +1,4 @@
-import React, { useState } from "react"; // Import useState
+import React, { useState } from "react"; 
 import styles from "./navbar.module.scss";
 
 const Hamburger = ({ authStatus }) => {
