@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styles from "../styles/SignUp.module.scss";
 import { useForm } from "react-hook-form";
 import robotImage from "../../assets/images/robotNew.png";
+import google from "../../assets/images/google.png";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
@@ -29,9 +30,9 @@ const SignUp = () => {
 
   const onSubmit = (data) => {
     console.log("Submitted Data:", data);
-    };
-    
-    const navigate = useNavigate();
+  };
+
+  const navigate = useNavigate();
   const handleLogin = () => navigate("/login");
 
   return (
@@ -161,6 +162,17 @@ const SignUp = () => {
             )}
           </div>
 
+          <span className={styles.googleButtonContainer}>
+            <button
+              type="button"
+              className={styles.googleButton}
+              onClick={() => { }}
+            >
+              SIGN UP WITH 
+              <img src={google} alt="google" height={25} width={25} />
+            </button>
+          </span>
+
           <div className={styles.buttonContainer}>
             <button type="submit" className={styles.cyberSubmitButton}>
               SIGN UP
@@ -177,8 +189,8 @@ const SignUp = () => {
         </form>
 
         <p className={styles.registerText}>Already registered?</p>
-        <Link className={styles.registerLink} to="/signup"> 
-          Join us!
+        <Link className={styles.registerLink} to="/login">
+          Log In
         </Link>
       </div>
     </div>

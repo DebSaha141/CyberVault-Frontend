@@ -1,8 +1,8 @@
 import React from 'react';
 import Navbar from './components/navbar/Navbar.jsx';
-import Footer from './components/Footer';
+import Footer from './components/Footer/Footer.jsx';
 import Sponsors from "./components/sponsors/Sponsors";
-import LiveEventComponent from './components/events'; 
+import LiveEventComponent from './components/events/eventposter.jsx'; 
 import TestimonialSection from "./components/Testimonials/TestimonialSection";
 import Hero from "./components/Hero/Hero"
 import NotFound from "./components/NotFound/notFound";
@@ -11,6 +11,7 @@ import About from './components/About/about.jsx';
 import RegistrationForm from './components/RegistrationForm/RegistrationForm.jsx';
 import Login from "./pages/auth/SignIn.jsx";
 import SignUp from './pages/auth/SignUp.jsx';
+import HomePage from './pages/HomePage.jsx';
 
 function App() {
   return (
@@ -18,13 +19,7 @@ function App() {
       <Routes>
         <Route path="/" element={
           <div>
-            <Navbar />
-            <Hero />
-            <About />
-            <Sponsors />
-            <LiveEventComponent />
-            <TestimonialSection />
-            {/* <Footer /> */}
+            <HomePage />
           </div>
         } />
 
@@ -32,12 +27,14 @@ function App() {
           <div>
             <Navbar />
             <Login />
+            <Footer />
           </div>} />
         
           <Route path="/signup" element={
           <div>
             <Navbar />
             <SignUp />
+            <Footer />
           </div>} />
         
           <Route path="/form" element={

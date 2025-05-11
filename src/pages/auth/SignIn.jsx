@@ -2,6 +2,7 @@ import React from "react";
 import styles from "../styles/SignIn.module.scss";
 import { useForm } from "react-hook-form";
 import robotImage from "../../assets/images/robotNew.png";
+import google from "../../assets/images/google.png";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
@@ -70,6 +71,13 @@ const SignIn = () => {
               <p className={styles.cyberError}>{errors.password.message}</p>
             )}
           </div>
+          <span className={styles.googleButtonContainer}><button
+            type="button"
+            className={styles.googleButton}
+            onClick={handleSignup}
+          >
+            LOG IN WITH <img src={google} alt="google" height={25} width={25}/>
+          </button></span>
           <div className={styles.buttonContainer}>
             <button type="submit" className={styles.cyberSubmitButton}>
               LOG IN
@@ -84,9 +92,14 @@ const SignIn = () => {
             </button>
           </div>
         </form>
+
+        <Link className={styles.forgotPasswordText} to="/login">
+                  Forgot Password?
+                </Link>
+
         <p className={styles.registerText}>Not signed up yet?</p>
 
-        <Link className={styles.registerLink} to="/signup"> 
+        <Link className={styles.registerLink} to="/signup">
           Join us!
         </Link>
       </div>

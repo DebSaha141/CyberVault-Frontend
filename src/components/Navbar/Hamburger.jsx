@@ -1,12 +1,12 @@
-import React, { useState } from 'react' // Import useState
-import styles from './navbar.module.scss'
+import React, { useState } from "react"; // Import useState
+import styles from "./navbar.module.scss";
 
 const Hamburger = ({ authStatus }) => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleDisplay = () => {
-    setIsMenuOpen(!isMenuOpen)
-  }
+    setIsMenuOpen(!isMenuOpen);
+  };
 
   return (
     <>
@@ -19,16 +19,32 @@ const Hamburger = ({ authStatus }) => {
       {isMenuOpen && (
         <div className={styles.hamburgerMenu}>
           <ul className={styles.hamburgerMenuList}>
-            <li>Home</li>
-            <li>Events</li>
-            <li>Team</li>
-            <li>About</li>
+            <li>
+              <a href="/" className={styles.link}>
+                Home
+              </a>
+            </li>
+            <li>
+              <a href="/events" className={styles.link}>
+                Events
+              </a>
+            </li>
+            <li>
+              <a href="/team" className={styles.link}>
+                Team
+              </a>
+            </li>
+            <li>
+              <a href="/about" className={styles.link}>
+                About
+              </a>
+            </li>
             <li>{authStatus}</li>
           </ul>
         </div>
       )}
     </>
-  )
-}
+  );
+};
 
-export default Hamburger
+export default Hamburger;
