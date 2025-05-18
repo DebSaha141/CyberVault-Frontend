@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 import { useEffect, useState } from 'react'
 import styles from './Team.module.scss'
 import cyber from '../../../src/assets/images/cyber.svg'
+=======
+import React, { useEffect, useState } from 'react'
+import styles from './Team.module.scss' // Import the styles as a module
+import core from "../../../src/assets/images/core.svg"
+>>>>>>> 755a593de0deba50073096cd6fb4818f56172459
 import tech from '../../../src/assets/images/tech.svg'
 import ui from '../../../src/assets/images/ui.svg'
 import event from '../../../src/assets/images/event.svg'
@@ -15,6 +21,7 @@ import globeIcon from '../../assets/images/globe.svg'
 import api from '../../services/api'
 
 const Team = () => {
+<<<<<<< HEAD
   const [data, setData] = useState(null)
   const [loading, setLoading] = useState(true)
 
@@ -53,6 +60,27 @@ const Team = () => {
   useEffect(() => {
     fetchTeamData()
   }, [])
+=======
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  const fetchTeamData = async () => {
+    try {
+      const response = await fetch('http://localhost:5001/api/teams/team?role=user');
+      const result = await response.json();
+      console.log('Team data:', result);
+      setData(result);
+      setLoading(false);
+    } catch (error) {
+      console.error('Error fetching team data:', error);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchTeamData();
+  }, []);
+>>>>>>> 755a593de0deba50073096cd6fb4818f56172459
 
   const TeamMember = ({ heading, members }) => {
     return (
@@ -60,6 +88,7 @@ const Team = () => {
         <p className={styles.title}>{heading}</p>
         <div className={styles.six}>
           <div className={styles.five}>
+<<<<<<< HEAD
             {members.map((member, index) => {
               const github = member.socialLinks?.find(
                 link => link.type.toLowerCase() === 'github'
@@ -118,11 +147,19 @@ const Team = () => {
                 </div>
               )
             })}
+=======
+            {members.map((member, index) => (
+              <div key={index} className={styles.member}>
+                <img src={member.imgURL} alt={member.name} className={styles.memberImage} />
+                <p className={styles.name}>{member.name}</p>
+              </div>
+            ))}
+>>>>>>> 755a593de0deba50073096cd6fb4818f56172459
           </div>
         </div>
       </>
-    )
-  }
+    );
+  };
 
   const TeamNames = ({ img, teamName }) => {
     return (
@@ -130,8 +167,13 @@ const Team = () => {
         <img src={img} alt={teamName} />
         <p className={styles.text1}>{teamName}</p>
       </div>
+<<<<<<< HEAD
     )
   }
+=======
+    );
+  };
+>>>>>>> 755a593de0deba50073096cd6fb4818f56172459
 
   return (
     <div className={styles.container}>
@@ -142,6 +184,7 @@ const Team = () => {
         </h3>
       </div>
       <div className={styles.second}>
+<<<<<<< HEAD
         <TeamNames img={cyber} teamName="CYBER" />
         <TeamNames img={tech} teamName="WEB DEV" />
         <TeamNames img={ui} teamName="UI/UX" />
@@ -150,6 +193,11 @@ const Team = () => {
         <TeamNames img={content} teamName="CONTENT" />
         <TeamNames img={marketing} teamName="MARKETING" />
         <TeamNames img={video} teamName="VIDEO EDITOR" />
+=======
+        <TeamNames img={core} teamName="CORE MEMBERS" />
+        <TeamNames img={tech} teamName="TEAM LEAD" />
+        <TeamNames img={hr} teamName="TEAM LEAD" />
+>>>>>>> 755a593de0deba50073096cd6fb4818f56172459
       </div>
       <div className={styles.third}>
         <button className={styles.sort}>
@@ -161,13 +209,21 @@ const Team = () => {
         {!loading && data && (
           <>
             {data.map((team, index) => (
+<<<<<<< HEAD
               <TeamMember key={index} heading={team.title} members={team.users} />
+=======
+              <TeamMember key={index} heading={team.title} members={team.members} />
+>>>>>>> 755a593de0deba50073096cd6fb4818f56172459
             ))}
           </>
         )}
       </div>
     </div>
-  )
-}
+  );
+};
 
+<<<<<<< HEAD
 export default Team
+=======
+export default Team;
+>>>>>>> 755a593de0deba50073096cd6fb4818f56172459
