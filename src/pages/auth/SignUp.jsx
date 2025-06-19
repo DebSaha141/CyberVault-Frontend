@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import robotImage from "../../assets/images/robotNew.png";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import api from "../../services/api"; // ✅ axios instance
 
 const SignUp = () => {
   const {
@@ -14,8 +15,8 @@ const SignUp = () => {
   } = useForm();
 
   const [passwordMatchError, setPasswordMatchError] = useState("");
-
   const password = watch("password");
+  const navigate = useNavigate();
 
   const validateConfirmPassword = (value) => {
     if (value !== password) {
@@ -27,11 +28,34 @@ const SignUp = () => {
     }
   };
 
-  const onSubmit = (data) => {
-    console.log("Submitted Data:", data);
+  const onSubmit = async ({ confirmPassword, ...rest }) => {
+    const email = rest.email;
+    const roll = email.split('@')[0]; // Extract roll number
+
+    const userPayload = {
+      ...rest,
+      roll,
+      userId: `${Date.now()}_${roll}`,
+      branch: "",
+      batch: "",
+      year: "",
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+      socialLinks: {},
+      optional: {}
     };
-    
-    const navigate = useNavigate();
+
+    try {
+      const res = await api.post("/api/auth/register", userPayload);
+      alert("User registered successfully!");
+      console.log("✅ Server Response:", res.data);
+      navigate("/login");
+    } catch (error) {
+      console.error("❌ Error during registration:", error.response?.data || error.message);
+      alert(error.response?.data?.message || "Registration failed");
+    }
+  };
+
   const handleLogin = () => navigate("/login");
 
   return (
@@ -44,10 +68,9 @@ const SignUp = () => {
         <h2 className={styles.cyberTitle}>GET STARTED</h2>
 
         <form onSubmit={handleSubmit(onSubmit)} className={styles.cyberForm}>
+          {/* Full Name */}
           <div className={styles.cyberFormGroup}>
-            <label htmlFor="nameField" className="cyber-label">
-              FULL NAME
-            </label>
+            <label htmlFor="nameField" className="cyber-label">FULL NAME</label>
             <input
               type="text"
               id="nameField"
@@ -55,21 +78,15 @@ const SignUp = () => {
               placeholder="Enter your full name"
               {...register("name", {
                 required: "Name is required",
-                minLength: {
-                  value: 3,
-                  message: "Name must be at least 3 characters",
-                },
+                minLength: { value: 3, message: "Name must be at least 3 characters" }
               })}
             />
-            {errors.name && (
-              <p className={styles.cyberError}>{errors.name.message}</p>
-            )}
+            {errors.name && <p className={styles.cyberError}>{errors.name.message}</p>}
           </div>
 
+          {/* Email */}
           <div className={styles.cyberFormGroup}>
-            <label htmlFor="emailField" className="cyber-label">
-              EMAIL
-            </label>
+            <label htmlFor="emailField" className="cyber-label">EMAIL</label>
             <input
               type="email"
               id="emailField"
@@ -79,41 +96,35 @@ const SignUp = () => {
                 required: "Email is required",
                 pattern: {
                   value: /^[a-zA-Z0-9._%+-]+@(kiit\.ac\.in|gmail\.com)$/,
-                  message: "Only KIIT or Gmail emails allowed",
-                },
+                  message: "Only KIIT or Gmail emails allowed"
+                }
               })}
             />
-            {errors.email && (
-              <p className={styles.cyberError}>{errors.email.message}</p>
-            )}
+            {errors.email && <p className={styles.cyberError}>{errors.email.message}</p>}
           </div>
 
+          {/* Phone */}
           <div className={styles.cyberFormGroup}>
-            <label htmlFor="phoneField" className="cyber-label">
-              PHONE NUMBER
-            </label>
+            <label htmlFor="phoneField" className="cyber-label">PHONE NUMBER</label>
             <input
               type="tel"
               id="phoneField"
               className={styles.cyberInput}
               placeholder="Enter your phone number"
-              {...register("phone", {
+              {...register("phoneNumber", {
                 required: "Phone number is required",
                 pattern: {
                   value: /^[6-9]\d{9}$/,
-                  message: "Enter a valid 10-digit phone number",
-                },
+                  message: "Enter a valid 10-digit phone number"
+                }
               })}
             />
-            {errors.phone && (
-              <p className={styles.cyberError}>{errors.phone.message}</p>
-            )}
+            {errors.phoneNumber && <p className={styles.cyberError}>{errors.phoneNumber.message}</p>}
           </div>
 
+          {/* Password */}
           <div className={styles.cyberFormGroup}>
-            <label htmlFor="passwordField" className="cyber-label">
-              CREATE PASSWORD
-            </label>
+            <label htmlFor="passwordField" className="cyber-label">CREATE PASSWORD</label>
             <input
               type="password"
               id="passwordField"
@@ -121,65 +132,44 @@ const SignUp = () => {
               placeholder="Enter your password"
               {...register("password", {
                 required: "Password is required",
-                minLength: {
-                  value: 6,
-                  message: "Password must be at least 6 characters",
-                },
-                maxLength: {
-                  value: 15,
-                  message: "Password should be between 6 and 15 characters",
-                },
+                minLength: { value: 6, message: "Minimum 6 characters" },
+                maxLength: { value: 15, message: "Max 15 characters" },
                 pattern: {
-                  value:
-                    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,15}$/,
-                  message:
-                    "Must include a letter, a number & a special character",
-                },
+                  value: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,15}$/,
+                  message: "Include letter, number & special character"
+                }
               })}
             />
-            {errors.password && (
-              <p className={styles.cyberError}>{errors.password.message}</p>
-            )}
+            {errors.password && <p className={styles.cyberError}>{errors.password.message}</p>}
           </div>
 
+          {/* Confirm Password */}
           <div className={styles.cyberFormGroup}>
-            <label htmlFor="confirmPasswordField" className="cyber-label">
-              CONFIRM PASSWORD
-            </label>
+            <label htmlFor="confirmPasswordField" className="cyber-label">CONFIRM PASSWORD</label>
             <input
               type="password"
               id="confirmPasswordField"
               className={styles.cyberInput}
               placeholder="Confirm your password"
               {...register("confirmPassword", {
-                required: "Confirm password is required",
-                validate: validateConfirmPassword,
+                required: "Confirm your password",
+                validate: validateConfirmPassword
               })}
             />
-            {passwordMatchError && (
-              <p className={styles.cyberError}>{passwordMatchError}</p>
-            )}
+            {passwordMatchError && <p className={styles.cyberError}>{passwordMatchError}</p>}
           </div>
 
+          {/* Buttons */}
           <div className={styles.buttonContainer}>
-            <button type="submit" className={styles.cyberSubmitButton}>
-              SIGN UP
-            </button>
-
-            <button
-              type="button"
-              className={styles.cyberSignupButton}
-              onClick={handleLogin}
-            >
+            <button type="submit" className={styles.cyberSubmitButton}>SIGN UP</button>
+            <button type="button" className={styles.cyberSignupButton} onClick={handleLogin}>
               LOGIN
             </button>
           </div>
         </form>
 
         <p className={styles.registerText}>Already registered?</p>
-        <Link className={styles.registerLink} to="/signup"> 
-          Join us!
-        </Link>
+        <Link className={styles.registerLink} to="/signup">Join us!</Link>
       </div>
     </div>
   );
