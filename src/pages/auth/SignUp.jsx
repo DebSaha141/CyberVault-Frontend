@@ -30,7 +30,7 @@ const SignUp = () => {
 
   const onSubmit = async ({ confirmPassword, ...rest }) => {
     const email = rest.email;
-    const roll = email.split('@')[0]; // Extract roll number
+    const roll = email.split("@")[0]; // Extract roll from email
 
     const userPayload = {
       ...rest,
@@ -42,7 +42,7 @@ const SignUp = () => {
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
       socialLinks: {},
-      optional: {}
+      optional: {},
     };
 
     try {
@@ -61,14 +61,14 @@ const SignUp = () => {
   return (
     <div className={styles.signupContainer}>
       <div className={styles.signinImage}>
-        <img src={robotImage} alt="CyberVault Robot Image" width={550} />
+        <img src={robotImage} alt="CyberVault Robot" width={550} />
       </div>
 
       <div className={styles.signinFormContainer}>
         <h2 className={styles.cyberTitle}>GET STARTED</h2>
 
         <form onSubmit={handleSubmit(onSubmit)} className={styles.cyberForm}>
-          {/* Full Name */}
+          {/* Name */}
           <div className={styles.cyberFormGroup}>
             <label htmlFor="nameField" className="cyber-label">FULL NAME</label>
             <input
@@ -78,7 +78,10 @@ const SignUp = () => {
               placeholder="Enter your full name"
               {...register("name", {
                 required: "Name is required",
-                minLength: { value: 3, message: "Name must be at least 3 characters" }
+                minLength: {
+                  value: 3,
+                  message: "Name must be at least 3 characters",
+                },
               })}
             />
             {errors.name && <p className={styles.cyberError}>{errors.name.message}</p>}
@@ -96,8 +99,8 @@ const SignUp = () => {
                 required: "Email is required",
                 pattern: {
                   value: /^[a-zA-Z0-9._%+-]+@(kiit\.ac\.in|gmail\.com)$/,
-                  message: "Only KIIT or Gmail emails allowed"
-                }
+                  message: "Only KIIT or Gmail emails allowed",
+                },
               })}
             />
             {errors.email && <p className={styles.cyberError}>{errors.email.message}</p>}
@@ -115,8 +118,8 @@ const SignUp = () => {
                 required: "Phone number is required",
                 pattern: {
                   value: /^[6-9]\d{9}$/,
-                  message: "Enter a valid 10-digit phone number"
-                }
+                  message: "Enter a valid 10-digit phone number",
+                },
               })}
             />
             {errors.phoneNumber && <p className={styles.cyberError}>{errors.phoneNumber.message}</p>}
@@ -132,12 +135,18 @@ const SignUp = () => {
               placeholder="Enter your password"
               {...register("password", {
                 required: "Password is required",
-                minLength: { value: 6, message: "Minimum 6 characters" },
-                maxLength: { value: 15, message: "Max 15 characters" },
+                minLength: {
+                  value: 6,
+                  message: "Minimum 6 characters",
+                },
+                maxLength: {
+                  value: 15,
+                  message: "Max 15 characters",
+                },
                 pattern: {
                   value: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,15}$/,
-                  message: "Include letter, number & special character"
-                }
+                  message: "Include letter, number & special character",
+                },
               })}
             />
             {errors.password && <p className={styles.cyberError}>{errors.password.message}</p>}
@@ -153,7 +162,7 @@ const SignUp = () => {
               placeholder="Confirm your password"
               {...register("confirmPassword", {
                 required: "Confirm your password",
-                validate: validateConfirmPassword
+                validate: validateConfirmPassword,
               })}
             />
             {passwordMatchError && <p className={styles.cyberError}>{passwordMatchError}</p>}
@@ -162,9 +171,7 @@ const SignUp = () => {
           {/* Buttons */}
           <div className={styles.buttonContainer}>
             <button type="submit" className={styles.cyberSubmitButton}>SIGN UP</button>
-            <button type="button" className={styles.cyberSignupButton} onClick={handleLogin}>
-              LOGIN
-            </button>
+            <button type="button" className={styles.cyberSignupButton} onClick={handleLogin}>LOGIN</button>
           </div>
         </form>
 
