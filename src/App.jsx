@@ -5,7 +5,7 @@ import NotFound from "./components/NotFound/notFound";
 import RegistrationForm from './components/RegistrationForm/registrationForm.jsx';
 import Home from './pages/home/home.jsx';
 
-import Team from './pages/team/Team.jsx';
+import Team from './pages/Team/Team.jsx';
 // import Footer from './components/Footer/Footer.jsx';
 import About from './pages/about/about.jsx';
 import Login from './pages/auth/SignIn.jsx';
