@@ -48,7 +48,7 @@ const SignUp = () => {
       optional: {},
     };
 
-    setServerError("");
+    setServerError("User registered successfully!");
     setSuccessMessage("");
 
     try {
@@ -61,7 +61,7 @@ const SignUp = () => {
       }
 
       setSuccessMessage("User registered successfully! Redirecting to login...");
-      setTimeout(() => navigate("/login"), 1500);
+      setTimeout(() => navigate("/"), 1500);
     } catch (error) {
       setServerError(
         error.response?.data?.message || "Registration failed. Please try again."
@@ -69,7 +69,7 @@ const SignUp = () => {
     }
   };
 
-  const handleLogin = () => navigate("/login");
+  const handleLogin = () => navigate("/");
 
   return (
     <div className={styles.signupContainer}>
