@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import robotImage from "../../assets/images/robotNew.png";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import api from "../../services/api"; // ✅ axios instance
+import api from "../../services/api";
 
 const SignUp = () => {
   const {
@@ -14,9 +14,12 @@ const SignUp = () => {
     formState: { errors },
   } = useForm();
 
-  const [passwordMatchError, setPasswordMatchError] = useState("");
   const password = watch("password");
   const navigate = useNavigate();
+
+  const [passwordMatchError, setPasswordMatchError] = useState("");
+  const [serverError, setServerError] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
   const validateConfirmPassword = (value) => {
     if (value !== password) {
@@ -30,7 +33,7 @@ const SignUp = () => {
 
   const onSubmit = async ({ confirmPassword, ...rest }) => {
     const email = rest.email;
-    const roll = email.split("@")[0]; // Extract roll from email
+    const roll = email.split("@")[0];
 
     const userPayload = {
       ...rest,
@@ -45,14 +48,24 @@ const SignUp = () => {
       optional: {},
     };
 
+    setServerError("");
+    setSuccessMessage("");
+
     try {
       const res = await api.post("/api/auth/register", userPayload);
-      alert("User registered successfully!");
-      console.log("✅ Server Response:", res.data);
-      navigate("/login");
+
+      // Optional: store token/user if returned by API
+      if (res.data.token) {
+        localStorage.setItem("userData", JSON.stringify(res.data.data));
+        localStorage.setItem("token", res.data.token);
+      }
+
+      setSuccessMessage("User registered successfully! Redirecting to login...");
+      setTimeout(() => navigate("/login"), 1500);
     } catch (error) {
-      console.error("❌ Error during registration:", error.response?.data || error.message);
-      alert(error.response?.data?.message || "Registration failed");
+      setServerError(
+        error.response?.data?.message || "Registration failed. Please try again."
+      );
     }
   };
 
@@ -68,7 +81,7 @@ const SignUp = () => {
         <h2 className={styles.cyberTitle}>GET STARTED</h2>
 
         <form onSubmit={handleSubmit(onSubmit)} className={styles.cyberForm}>
-          {/* Name */}
+          {/* Full Name */}
           <div className={styles.cyberFormGroup}>
             <label htmlFor="nameField" className="cyber-label">FULL NAME</label>
             <input
@@ -78,10 +91,7 @@ const SignUp = () => {
               placeholder="Enter your full name"
               {...register("name", {
                 required: "Name is required",
-                minLength: {
-                  value: 3,
-                  message: "Name must be at least 3 characters",
-                },
+                minLength: { value: 3, message: "Minimum 3 characters" },
               })}
             />
             {errors.name && <p className={styles.cyberError}>{errors.name.message}</p>}
@@ -106,7 +116,7 @@ const SignUp = () => {
             {errors.email && <p className={styles.cyberError}>{errors.email.message}</p>}
           </div>
 
-          {/* Phone */}
+          {/* Phone Number */}
           <div className={styles.cyberFormGroup}>
             <label htmlFor="phoneField" className="cyber-label">PHONE NUMBER</label>
             <input
@@ -122,7 +132,9 @@ const SignUp = () => {
                 },
               })}
             />
-            {errors.phoneNumber && <p className={styles.cyberError}>{errors.phoneNumber.message}</p>}
+            {errors.phoneNumber && (
+              <p className={styles.cyberError}>{errors.phoneNumber.message}</p>
+            )}
           </div>
 
           {/* Password */}
@@ -135,21 +147,17 @@ const SignUp = () => {
               placeholder="Enter your password"
               {...register("password", {
                 required: "Password is required",
-                minLength: {
-                  value: 6,
-                  message: "Minimum 6 characters",
-                },
-                maxLength: {
-                  value: 15,
-                  message: "Max 15 characters",
-                },
+                minLength: { value: 6, message: "Minimum 6 characters" },
+                maxLength: { value: 15, message: "Max 15 characters" },
                 pattern: {
                   value: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,15}$/,
                   message: "Include letter, number & special character",
                 },
               })}
             />
-            {errors.password && <p className={styles.cyberError}>{errors.password.message}</p>}
+            {errors.password && (
+              <p className={styles.cyberError}>{errors.password.message}</p>
+            )}
           </div>
 
           {/* Confirm Password */}
@@ -167,6 +175,10 @@ const SignUp = () => {
             />
             {passwordMatchError && <p className={styles.cyberError}>{passwordMatchError}</p>}
           </div>
+
+          {/* Feedback Messages */}
+          {serverError && <p className={styles.cyberError}>{serverError}</p>}
+          {successMessage && <p className={styles.cyberSuccess}>{successMessage}</p>}
 
           {/* Buttons */}
           <div className={styles.buttonContainer}>
