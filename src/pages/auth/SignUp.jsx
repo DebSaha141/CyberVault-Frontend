@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from "../styles/SignUp.module.scss";
 import { useForm } from "react-hook-form";
 import robotImage from "../../assets/images/robotNew.png";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import api from "../../services/api";
+import { useAlert } from "../../components/Alert/AlertContext";
 
 const SignUp = () => {
   const {
@@ -12,64 +12,62 @@ const SignUp = () => {
     handleSubmit,
     watch,
     formState: { errors },
+    trigger,
   } = useForm();
 
-  const password = watch("password");
   const navigate = useNavigate();
+  const { showAlert } = useAlert();
 
-  const [passwordMatchError, setPasswordMatchError] = useState("");
-  const [serverError, setServerError] = useState("");
-  const [successMessage, setSuccessMessage] = useState("");
+  const password = watch("password");
 
   const validateConfirmPassword = (value) => {
     if (value !== password) {
-      setPasswordMatchError("Passwords do not match");
+      showAlert("Passwords do not match", "warning");
       return false;
-    } else {
-      setPasswordMatchError("");
-      return true;
+    }
+    return true;
+  };
+
+  const handleValidation = async () => {
+    const isValid = await trigger();
+    if (!isValid) {
+      if (errors.name) showAlert(errors.name.message, "warning");
+      else if (errors.email) showAlert(errors.email.message, "warning");
+      else if (errors.phoneNumber) showAlert(errors.phoneNumber.message, "warning");
+      else if (errors.password) showAlert(errors.password.message, "warning");
+      else if (errors.confirmPassword) showAlert("Passwords do not match", "warning");
     }
   };
 
-  const onSubmit = async ({ confirmPassword, ...rest }) => {
-    const email = rest.email;
+  const onSubmit = async (formData) => {
+    const email = formData.email;
     const roll = email.split("@")[0];
 
     const userPayload = {
-      ...rest,
+      ...formData,
       roll,
       userId: `${Date.now()}_${roll}`,
       branch: "",
       batch: "",
-      year: "",
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-      socialLinks: {},
-      optional: {},
     };
-
-    setServerError("User registered successfully!");
-    setSuccessMessage("");
 
     try {
       const res = await api.post("/api/auth/register", userPayload);
 
-      // Optional: store token/user if returned by API
       if (res.data.token) {
         localStorage.setItem("userData", JSON.stringify(res.data.data));
         localStorage.setItem("token", res.data.token);
       }
 
-      setSuccessMessage("User registered successfully! Redirecting to login...");
+      showAlert("User registered successfully! Redirecting to login...", "success");
       setTimeout(() => navigate("/"), 1500);
     } catch (error) {
-      setServerError(
-        error.response?.data?.message || "Registration failed. Please try again."
+      showAlert(
+        error.response?.data?.message || "Registration failed. Please try again.",
+        "error"
       );
     }
   };
-
-  const handleLogin = () => navigate("/");
 
   return (
     <div className={styles.signupContainer}>
@@ -81,7 +79,6 @@ const SignUp = () => {
         <h2 className={styles.cyberTitle}>GET STARTED</h2>
 
         <form onSubmit={handleSubmit(onSubmit)} className={styles.cyberForm}>
-          {/* Full Name */}
           <div className={styles.cyberFormGroup}>
             <label htmlFor="nameField" className="cyber-label">FULL NAME</label>
             <input
@@ -94,10 +91,8 @@ const SignUp = () => {
                 minLength: { value: 3, message: "Minimum 3 characters" },
               })}
             />
-            {errors.name && <p className={styles.cyberError}>{errors.name.message}</p>}
           </div>
 
-          {/* Email */}
           <div className={styles.cyberFormGroup}>
             <label htmlFor="emailField" className="cyber-label">EMAIL</label>
             <input
@@ -113,10 +108,8 @@ const SignUp = () => {
                 },
               })}
             />
-            {errors.email && <p className={styles.cyberError}>{errors.email.message}</p>}
           </div>
 
-          {/* Phone Number */}
           <div className={styles.cyberFormGroup}>
             <label htmlFor="phoneField" className="cyber-label">PHONE NUMBER</label>
             <input
@@ -132,12 +125,8 @@ const SignUp = () => {
                 },
               })}
             />
-            {errors.phoneNumber && (
-              <p className={styles.cyberError}>{errors.phoneNumber.message}</p>
-            )}
           </div>
 
-          {/* Password */}
           <div className={styles.cyberFormGroup}>
             <label htmlFor="passwordField" className="cyber-label">CREATE PASSWORD</label>
             <input
@@ -155,12 +144,8 @@ const SignUp = () => {
                 },
               })}
             />
-            {errors.password && (
-              <p className={styles.cyberError}>{errors.password.message}</p>
-            )}
           </div>
 
-          {/* Confirm Password */}
           <div className={styles.cyberFormGroup}>
             <label htmlFor="confirmPasswordField" className="cyber-label">CONFIRM PASSWORD</label>
             <input
@@ -173,17 +158,15 @@ const SignUp = () => {
                 validate: validateConfirmPassword,
               })}
             />
-            {passwordMatchError && <p className={styles.cyberError}>{passwordMatchError}</p>}
           </div>
 
-          {/* Feedback Messages */}
-          {serverError && <p className={styles.cyberError}>{serverError}</p>}
-          {successMessage && <p className={styles.cyberSuccess}>{successMessage}</p>}
-
-          {/* Buttons */}
           <div className={styles.buttonContainer}>
-            <button type="submit" className={styles.cyberSubmitButton}>SIGN UP</button>
-            <button type="button" className={styles.cyberSignupButton} onClick={handleLogin}>LOGIN</button>
+            <button type="submit" className={styles.cyberSubmitButton} onClick={handleValidation}>
+              SIGN UP
+            </button>
+            <button type="button" className={styles.cyberSignupButton} onClick={() => navigate("/")}>
+              LOGIN
+            </button>
           </div>
         </form>
 

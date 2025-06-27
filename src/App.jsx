@@ -4,9 +4,7 @@ import Navbar from './components/navbar/Navbar.jsx';
 import NotFound from "./components/NotFound/notFound";
 import RegistrationForm from './components/RegistrationForm/registrationForm.jsx';
 import Home from './pages/home/home.jsx';
-
 import Team from './pages/Team/Team.jsx';
-// import Footer from './components/Footer/Footer.jsx';
 import About from './pages/about/about.jsx';
 import Login from './pages/auth/SignIn.jsx';
 import SignUp from './pages/auth/SignUp.jsx';
@@ -14,7 +12,7 @@ import AddMember from './pages/addMember/AddMember.jsx';
 
 import Footer from './components/Footer/Footer.jsx';
 
-
+import { AlertProvider } from "./components/Alert/AlertContext.jsx"; 
 
 
 function Layout({ children }) {
@@ -32,7 +30,9 @@ function Layout({ children }) {
 
 function App() {
   return (
+    <AlertProvider>
     <Router>
+      
       <Layout>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -42,13 +42,13 @@ function App() {
 
           <Route path="/team" element={<Team />} />
           <Route path="/addMember" element={<AddMember />} />
-
-          {/* <Route path="/form/:formid" element={<RegistrationForm />} /> */}
           <Route path="/form" element={<RegistrationForm />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Layout>
+      
     </Router>
+    </AlertProvider>
   );
 }
 
