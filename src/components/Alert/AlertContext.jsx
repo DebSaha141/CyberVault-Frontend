@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useCallback } from "react";
-import styles from "./Alert.module.scss"; 
+import { FiCheckCircle, FiXCircle, FiAlertTriangle, FiInfo } from "react-icons/fi";
+import styles from "./Alert.module.scss";
 
 const AlertContext = createContext();
 
@@ -24,19 +25,20 @@ export const AlertProvider = ({ children }) => {
 export const useAlert = () => useContext(AlertContext);
 
 const Alert = ({ message, type }) => {
-  const getAlertClass = () => {
+  const getIcon = () => {
     switch (type) {
-      case "success": return styles.success;
-      case "error": return styles.error;
-      case "warning": return styles.warning;
+      case "success": return <FiCheckCircle className={styles.icon} />;
+      case "error": return <FiXCircle className={styles.icon} />;
+      case "warning": return <FiAlertTriangle className={styles.icon} />;
       case "info":
-      default: return styles.info;
+      default: return <FiInfo className={styles.icon} />;
     }
   };
 
   return (
-    <div className={`${styles.alert} ${getAlertClass()}`}>
-      {message}
+    <div className={`${styles.alert} ${styles[type]}`}>
+      {getIcon()}
+      <span>{message}</span>
     </div>
   );
 };

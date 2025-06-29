@@ -60,7 +60,7 @@ const SignUp = () => {
       }
 
       showAlert("User registered successfully! Redirecting to login...", "success");
-      setTimeout(() => navigate("/"), 1500);
+      setTimeout(() => navigate("/"), 2000);
     } catch (error) {
       showAlert(
         error.response?.data?.message || "Registration failed. Please try again.",

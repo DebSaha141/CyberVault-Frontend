@@ -1,37 +1,47 @@
 .alert {
   position: fixed;
   top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 12px 24px;
-  color: white;
-  border-radius: 4px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  right: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 20px;
+  font-weight: 500;
+  color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
   z-index: 1000;
-  animation: fadeIn 0.3s ease-in-out;
-  
+  animation: slideIn 0.3s ease-out;
+
   &.success {
-    background-color: #10b981; 
+    background-color: #22c55e;
   }
-  
+
   &.error {
-    background-color: #ef4444; 
+    background-color: #ef4444;
   }
-  
+
   &.warning {
-    background-color: #f59e0b;
+    background-color: #facc15;
     color: #000;
   }
-  
+
+  &.info {
+    background-color: #3b82f6;
+  }
 }
 
-@keyframes fadeIn {
+.icon {
+  font-size: 20px;
+}
+
+@keyframes slideIn {
   from {
     opacity: 0;
-    transform: translateX(-50%) translateY(-20px);
+    transform: translateX(50px);
   }
   to {
     opacity: 1;
-    transform: translateX(-50%) translateY(0);
+    transform: translateX(0);
   }
 }
