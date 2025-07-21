@@ -1,10 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from "../styles/SignUp.module.scss";
 import { useForm } from "react-hook-form";
 import robotImage from "../../assets/images/robotNew.png";
+<<<<<<< HEAD
 import google from "../../assets/images/google.png";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+=======
+import { useNavigate, Link } from "react-router-dom";
+import api from "../../services/api";
+import { useAlert } from "../../components/Alert/AlertContext";
+>>>>>>> 8a2008f5c60bf25476aaf76aff5dd97c08820adf
 
 const SignUp = () => {
   const {
@@ -12,33 +18,76 @@ const SignUp = () => {
     handleSubmit,
     watch,
     formState: { errors },
+    trigger,
   } = useForm();
 
-  const [passwordMatchError, setPasswordMatchError] = useState("");
+  const navigate = useNavigate();
+  const { showAlert } = useAlert();
 
   const password = watch("password");
 
   const validateConfirmPassword = (value) => {
     if (value !== password) {
-      setPasswordMatchError("Passwords do not match");
+      showAlert("Passwords do not match", "warning");
       return false;
-    } else {
-      setPasswordMatchError("");
-      return true;
+    }
+    return true;
+  };
+
+  const handleValidation = async () => {
+    const isValid = await trigger();
+    if (!isValid) {
+      if (errors.name) showAlert(errors.name.message, "warning");
+      else if (errors.email) showAlert(errors.email.message, "warning");
+      else if (errors.phoneNumber) showAlert(errors.phoneNumber.message, "warning");
+      else if (errors.password) showAlert(errors.password.message, "warning");
+      else if (errors.confirmPassword) showAlert("Passwords do not match", "warning");
     }
   };
 
+<<<<<<< HEAD
   const onSubmit = (data) => {
     console.log("Submitted Data:", data);
   };
 
   const navigate = useNavigate();
   const handleLogin = () => navigate("/login");
+=======
+  const onSubmit = async (formData) => {
+    const email = formData.email;
+    const roll = email.split("@")[0];
+
+    const userPayload = {
+      ...formData,
+      roll,
+      userId: `${Date.now()}_${roll}`,
+      branch: "",
+      batch: "",
+    };
+
+    try {
+      const res = await api.post("/api/auth/register", userPayload);
+
+      if (res.data.token) {
+        localStorage.setItem("userData", JSON.stringify(res.data.data));
+        localStorage.setItem("token", res.data.token);
+      }
+
+      showAlert("User registered successfully! Redirecting to login...", "success");
+      setTimeout(() => navigate("/"), 2000);
+    } catch (error) {
+      showAlert(
+        error.response?.data?.message || "Registration failed. Please try again.",
+        "error"
+      );
+    }
+  };
+>>>>>>> 8a2008f5c60bf25476aaf76aff5dd97c08820adf
 
   return (
     <div className={styles.signupContainer}>
       <div className={styles.signinImage}>
-        <img src={robotImage} alt="CyberVault Robot Image" width={550} />
+        <img src={robotImage} alt="CyberVault Robot" width={550} />
       </div>
 
       <div className={styles.signinFormContainer}>
@@ -46,9 +95,7 @@ const SignUp = () => {
 
         <form onSubmit={handleSubmit(onSubmit)} className={styles.cyberForm}>
           <div className={styles.cyberFormGroup}>
-            <label htmlFor="nameField" className="cyber-label">
-              FULL NAME
-            </label>
+            <label htmlFor="nameField" className="cyber-label">FULL NAME</label>
             <input
               type="text"
               id="nameField"
@@ -56,21 +103,13 @@ const SignUp = () => {
               placeholder="Enter your full name"
               {...register("name", {
                 required: "Name is required",
-                minLength: {
-                  value: 3,
-                  message: "Name must be at least 3 characters",
-                },
+                minLength: { value: 3, message: "Minimum 3 characters" },
               })}
             />
-            {errors.name && (
-              <p className={styles.cyberError}>{errors.name.message}</p>
-            )}
           </div>
 
           <div className={styles.cyberFormGroup}>
-            <label htmlFor="emailField" className="cyber-label">
-              EMAIL
-            </label>
+            <label htmlFor="emailField" className="cyber-label">EMAIL</label>
             <input
               type="email"
               id="emailField"
@@ -84,21 +123,16 @@ const SignUp = () => {
                 },
               })}
             />
-            {errors.email && (
-              <p className={styles.cyberError}>{errors.email.message}</p>
-            )}
           </div>
 
           <div className={styles.cyberFormGroup}>
-            <label htmlFor="phoneField" className="cyber-label">
-              PHONE NUMBER
-            </label>
+            <label htmlFor="phoneField" className="cyber-label">PHONE NUMBER</label>
             <input
               type="tel"
               id="phoneField"
               className={styles.cyberInput}
               placeholder="Enter your phone number"
-              {...register("phone", {
+              {...register("phoneNumber", {
                 required: "Phone number is required",
                 pattern: {
                   value: /^[6-9]\d{9}$/,
@@ -106,15 +140,10 @@ const SignUp = () => {
                 },
               })}
             />
-            {errors.phone && (
-              <p className={styles.cyberError}>{errors.phone.message}</p>
-            )}
           </div>
 
           <div className={styles.cyberFormGroup}>
-            <label htmlFor="passwordField" className="cyber-label">
-              CREATE PASSWORD
-            </label>
+            <label htmlFor="passwordField" className="cyber-label">CREATE PASSWORD</label>
             <input
               type="password"
               id="passwordField"
@@ -122,44 +151,28 @@ const SignUp = () => {
               placeholder="Enter your password"
               {...register("password", {
                 required: "Password is required",
-                minLength: {
-                  value: 6,
-                  message: "Password must be at least 6 characters",
-                },
-                maxLength: {
-                  value: 15,
-                  message: "Password should be between 6 and 15 characters",
-                },
+                minLength: { value: 6, message: "Minimum 6 characters" },
+                maxLength: { value: 15, message: "Max 15 characters" },
                 pattern: {
-                  value:
-                    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,15}$/,
-                  message:
-                    "Must include a letter, a number & a special character",
+                  value: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,15}$/,
+                  message: "Include letter, number & special character",
                 },
               })}
             />
-            {errors.password && (
-              <p className={styles.cyberError}>{errors.password.message}</p>
-            )}
           </div>
 
           <div className={styles.cyberFormGroup}>
-            <label htmlFor="confirmPasswordField" className="cyber-label">
-              CONFIRM PASSWORD
-            </label>
+            <label htmlFor="confirmPasswordField" className="cyber-label">CONFIRM PASSWORD</label>
             <input
               type="password"
               id="confirmPasswordField"
               className={styles.cyberInput}
               placeholder="Confirm your password"
               {...register("confirmPassword", {
-                required: "Confirm password is required",
+                required: "Confirm your password",
                 validate: validateConfirmPassword,
               })}
             />
-            {passwordMatchError && (
-              <p className={styles.cyberError}>{passwordMatchError}</p>
-            )}
           </div>
 
           <span className={styles.googleButtonContainer}>
@@ -174,24 +187,23 @@ const SignUp = () => {
           </span>
 
           <div className={styles.buttonContainer}>
-            <button type="submit" className={styles.cyberSubmitButton}>
+            <button type="submit" className={styles.cyberSubmitButton} onClick={handleValidation}>
               SIGN UP
             </button>
-
-            <button
-              type="button"
-              className={styles.cyberSignupButton}
-              onClick={handleLogin}
-            >
+            <button type="button" className={styles.cyberSignupButton} onClick={() => navigate("/")}>
               LOGIN
             </button>
           </div>
         </form>
 
         <p className={styles.registerText}>Already registered?</p>
+<<<<<<< HEAD
         <Link className={styles.registerLink} to="/login">
           Log In
         </Link>
+=======
+        <Link className={styles.registerLink} to="/signup">Join us!</Link>
+>>>>>>> 8a2008f5c60bf25476aaf76aff5dd97c08820adf
       </div>
     </div>
   );
