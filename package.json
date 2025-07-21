@@ -13,11 +13,8 @@
     "@splinetool/react-spline": "^4.0.0",
     "@splinetool/runtime": "^1.9.59",
     "axios": "^1.7.9",
-<<<<<<< HEAD
     "lucide-react": "^0.509.0",
-=======
     "cybervault": "file:",
->>>>>>> 8a2008f5c60bf25476aaf76aff5dd97c08820adf
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-hook-form": "^7.54.2",

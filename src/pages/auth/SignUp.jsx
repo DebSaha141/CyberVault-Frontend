@@ -2,15 +2,11 @@ import React from "react";
 import styles from "../styles/SignUp.module.scss";
 import { useForm } from "react-hook-form";
 import robotImage from "../../assets/images/robotNew.png";
-<<<<<<< HEAD
 import google from "../../assets/images/google.png";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-=======
-import { useNavigate, Link } from "react-router-dom";
 import api from "../../services/api";
 import { useAlert } from "../../components/Alert/AlertContext";
->>>>>>> 8a2008f5c60bf25476aaf76aff5dd97c08820adf
 
 const SignUp = () => {
   const {
@@ -45,14 +41,6 @@ const SignUp = () => {
     }
   };
 
-<<<<<<< HEAD
-  const onSubmit = (data) => {
-    console.log("Submitted Data:", data);
-  };
-
-  const navigate = useNavigate();
-  const handleLogin = () => navigate("/login");
-=======
   const onSubmit = async (formData) => {
     const email = formData.email;
     const roll = email.split("@")[0];
@@ -82,7 +70,6 @@ const SignUp = () => {
       );
     }
   };
->>>>>>> 8a2008f5c60bf25476aaf76aff5dd97c08820adf
 
   return (
     <div className={styles.signupContainer}>
@@ -197,13 +184,7 @@ const SignUp = () => {
         </form>
 
         <p className={styles.registerText}>Already registered?</p>
-<<<<<<< HEAD
-        <Link className={styles.registerLink} to="/login">
-          Log In
-        </Link>
-=======
         <Link className={styles.registerLink} to="/signup">Join us!</Link>
->>>>>>> 8a2008f5c60bf25476aaf76aff5dd97c08820adf
       </div>
     </div>
   );
