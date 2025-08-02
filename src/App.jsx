@@ -11,6 +11,7 @@ import SignUp from './pages/auth/SignUp.jsx';
 import AddMember from './pages/addMember/AddMember.jsx';
 
 import Event from './pages/event/event.jsx';
+import EventDetails from './pages/eventDetails/eventDetails.jsx';
 
 import Footer from './components/Footer/Footer.jsx';
 
@@ -48,6 +49,7 @@ function App() {
           <Route path="/form" element={<RegistrationForm />} />
           <Route path="*" element={<NotFound />} />
           <Route path="/event" element={<Event />} />
+          <Route path="/eventDetails" element={<EventDetails />} />
         </Routes>
       </Layout>
       
