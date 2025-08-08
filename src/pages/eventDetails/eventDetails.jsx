@@ -59,17 +59,16 @@ const EventDetails = () => {
 
       <div className={styles.imageGallery}>
         {events.length > 0 ? (
-            events.map((event, index) => {
+              events.slice(0,2).flatMap((event, index) => {
             const imageUrls = Object.values(event.poster?.images || {});
-            const firstImage = imageUrls[0]; 
+            const validImages = imageUrls.filter((url) => url);
 
-            if (!firstImage) return null;
+            return validImages.map((imageUrl, imgIndex) => (
 
-            return (
-              <div key={event.id || index} className={styles.pastEventCard}>
+              <div key={`${event.id || index}-${imgIndex}`} className={styles.pastEventCard}>
                 <img
-                  src={firstImage}
-                  alt={`${event.title || "Past Event"} 1`}
+                  src={imageUrl}
+                  alt={`${event.title || "Past Event"} ${imgIndex + 1}`}
                   className={styles.eventImage}
                 />
                 <div className={styles.pastEventText}>
@@ -88,7 +87,7 @@ const EventDetails = () => {
                   </span>
                 </div>
               </div>
-            );
+            ));
          })
 
         ) : (
