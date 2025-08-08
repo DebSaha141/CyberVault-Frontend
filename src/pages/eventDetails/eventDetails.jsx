@@ -59,15 +59,17 @@ const EventDetails = () => {
 
       <div className={styles.imageGallery}>
         {events.length > 0 ? (
-          events.map((event, index) => {
+            events.map((event, index) => {
             const imageUrls = Object.values(event.poster?.images || {});
-            const validImages = imageUrls.filter(url => url); 
-            
-            return validImages.map((imageUrl, imgIndex) => (
-              <div key={`${event.id || index}-${imgIndex}`} className={styles.pastEventCard}>
+            const firstImage = imageUrls[0]; 
+
+            if (!firstImage) return null;
+
+            return (
+              <div key={event.id || index} className={styles.pastEventCard}>
                 <img
-                  src={imageUrl}
-                  alt={`${event.title || 'Past Event'} ${imgIndex + 1}`}
+                  src={firstImage}
+                  alt={`${event.title || "Past Event"} 1`}
                   className={styles.eventImage}
                 />
                 <div className={styles.pastEventText}>
@@ -76,20 +78,19 @@ const EventDetails = () => {
                   </h3>
                   <p className={styles.cardText}>
                     {event.description
-                      ? `${event.description.slice(0, 100)}${
-                          event.description.length > 100 ? "..." : ""
-                        }`
-                      : "No description available."}
+                    ? `${event.description.slice(0, 100)}${
+                      event.description.length > 100 ? "..." : ""
+                    }`
+                    : "No description available."}
                   </p>
-                  {event.topic ? (
-                    <span className={styles.cardTag}>{event.topic}</span>
-                  ) : (
-                    <span className={styles.cardTag}>No Topic</span>
-                  )}
+                  <span className={styles.cardTag}>
+                    {event.topic || "No Topic"}
+                  </span>
                 </div>
               </div>
-            ));
-          })
+            );
+         })
+
         ) : (
           <p>No past event images found.</p>
         )}
