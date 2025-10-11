@@ -9,7 +9,9 @@ const NavList = () => {
         <Link to='/'>
           <li>Home</li>
         </Link>
-        <li>Events</li>
+        <Link to="/event">
+           <li>Events</li>
+          </Link>
         <Link to='/team'>
           <li>Team</li>
         </Link>

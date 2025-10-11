@@ -46,6 +46,8 @@ function App() {
           <Route path="/editMember" element={<EditMember />} />
           <Route path="/form" element={<RegistrationForm />} />
           <Route path="*" element={<NotFound />} />
+          <Route path="/event" element={<Event />} />
+          <Route path="/eventDetails" element={<EventDetails />} />
         </Routes>
       </Layout>
       
