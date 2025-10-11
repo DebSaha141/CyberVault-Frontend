@@ -2,6 +2,7 @@ import React from "react";
 import styles from "../styles/SignIn.module.scss";
 import { useForm } from "react-hook-form";
 import robotImage from "../../assets/images/robotNew.png";
+import google from "../../assets/images/google.png";
 import { useNavigate, Link } from "react-router-dom";
 import api from "../../services/api";
 import { useAlert } from "../../components/Alert/AlertContext";
@@ -75,7 +76,6 @@ const SignIn = () => {
               <p className={styles.cyberError}>{errors.password.message}</p>
             )}
           </div>
-
           <div className={styles.buttonContainer}>
             <button type="submit" className={styles.cyberSubmitButton}>
               LOG IN

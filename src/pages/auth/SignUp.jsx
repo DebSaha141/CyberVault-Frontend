@@ -2,7 +2,9 @@ import React from "react";
 import styles from "../styles/SignUp.module.scss";
 import { useForm } from "react-hook-form";
 import robotImage from "../../assets/images/robotNew.png";
-import { useNavigate, Link } from "react-router-dom";
+import google from "../../assets/images/google.png";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import api from "../../services/api";
 import { useAlert } from "../../components/Alert/AlertContext";
 
@@ -159,6 +161,17 @@ const SignUp = () => {
               })}
             />
           </div>
+
+          <span className={styles.googleButtonContainer}>
+            <button
+              type="button"
+              className={styles.googleButton}
+              onClick={() => { }}
+            >
+              SIGN UP WITH 
+              <img src={google} alt="google" height={25} width={25} />
+            </button>
+          </span>
 
           <div className={styles.buttonContainer}>
             <button type="submit" className={styles.cyberSubmitButton} onClick={handleValidation}>

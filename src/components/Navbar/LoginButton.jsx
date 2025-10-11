@@ -4,7 +4,7 @@ import styles from './navbar.module.scss'
 const LoginButton = ({ authStatus }) => {
   return (
     <div className={styles.login}>
-      <button className={styles.loginButton}>{authStatus}</button>
+      <button className={styles.loginButton}><a href="/login">{authStatus}</a></button>
     </div>
   )
 }
