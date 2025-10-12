@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Navbar from "./components/navbar/Navbar.jsx";
+import Navbar from './components/navbar/Navbar.jsx';
 import NotFound from "./components/NotFound/notFound";
 import RegistrationForm from './components/RegistrationForm/registrationForm.jsx';
 import Home from './pages/home/home.jsx';
@@ -15,7 +15,6 @@ import Footer from './components/Footer/Footer.jsx';
 
 import { AlertProvider } from "./components/Alert/AlertContext.jsx"; 
 
-import { AlertProvider } from "./components/Alert/AlertContext.jsx";
 
 function Layout({ children }) {
   return (
@@ -23,7 +22,9 @@ function Layout({ children }) {
       <Navbar />
       {children}
 
+
       <Footer />
+
     </>
   );
 }
