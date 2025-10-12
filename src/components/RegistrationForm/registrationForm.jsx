@@ -34,10 +34,8 @@ const RegistrationForm = () => {
     watch(field.fieldName)
   );
 
-  const isSectionFilled = watchSectionFields.some(
-    (value) =>
-      value &&
-      (typeof value === "string" ? value.trim().length > 0 : value.length > 0)
+  const isSectionFilled = watchSectionFields.some((value) => 
+    value && (typeof value === 'string' ? value.trim().length > 0 : value.length > 0)
   );
 
   const handleFieldChange = (fieldName, value) => {
@@ -50,11 +48,10 @@ const RegistrationForm = () => {
 
   const handleNext = async (e) => {
     e.preventDefault();
-
-    const fieldsToValidate =
-      isSectionFilled || isRequiredSection
-        ? currentSection.fields.map((field) => field.fieldName)
-        : [];
+    
+    const fieldsToValidate = isSectionFilled || isRequiredSection
+      ? currentSection.fields.map((field) => field.fieldName)
+      : [];
 
     if (!isRequiredSection && !isSectionFilled) {
       currentSection.fields.forEach((field) => {
@@ -90,74 +87,72 @@ const RegistrationForm = () => {
   const triggerGrid = currentSection.fields.length > 7;
 
   return (
-    <form className={styles.cybercontainer} onSubmit={handleFormSubmit}>
+    <form 
+      className={styles.cybercontainer} 
+      onSubmit={handleFormSubmit}
+    >
       <h1 className={styles.cybertitle}>{formData.infoObject.formTitle}</h1>
       <p className={styles.cybersubtitle}>{formData.infoObject.description}</p>
 
       <div>
         <h2 className={styles.cybertitle}>{currentSection.sectionTitle}</h2>
-        <div className={triggerGrid ? styles.formContainer : ""}>
+        <div className={triggerGrid?styles.formContainer:""}>
           {currentSection.fields.map((field) => {
-            switch (field.type) {
-              case "text":
-                return (
-                  <TextField
-                    key={`${currentStep}-${field.fieldName}`}
-                    field={field}
-                    register={register}
-                    errors={errors}
-                    onChange={(e) =>
-                      handleFieldChange(field.fieldName, e.target.value)
-                    }
-                  />
-                );
-              case "select":
-                return (
-                  <SelectField
-                    key={`${currentStep}-${field.fieldName}`}
-                    field={field}
-                    register={register}
-                    errors={errors}
-                    onChange={(e) =>
-                      handleFieldChange(field.fieldName, e.target.value)
-                    }
-                  />
-                );
-              case "fileUpload":
-                return (
-                  <FileUpload
-                    key={`${currentStep}-${field.fieldName}`}
-                    field={field}
-                    register={register}
-                    errors={errors}
-                    onChange={(e) =>
-                      handleFieldChange(field.fieldName, e.target.value)
-                    }
-                  />
-                );
-              case "checkbox":
-                return (
-                  <CheckboxField
-                    key={`${currentStep}-${field.fieldName}`}
-                    field={field}
-                    register={register}
-                    errors={errors}
-                  />
-                );
-              case "increment-decrement":
-                return (
-                  <IncrementDecrementField
-                    key={`${currentStep}-${field.fieldName}`}
-                    field={field}
-                    register={register}
-                    errors={errors}
-                  />
-                );
-              default:
-                return null;
-            }
-          })}
-        </div>
+
+          switch (field.type) {
+            case "text":
+              return (
+                <TextField
+                  key={`${currentStep}-${field.fieldName}`}
+                  field={field}
+                  register={register}
+                  errors={errors}
+                  onChange={(e) => handleFieldChange(field.fieldName, e.target.value)}
+                />
+              );
+            case "select":
+              return (
+                <SelectField
+                  key={`${currentStep}-${field.fieldName}`}
+                  field={field}
+                  register={register}
+                  errors={errors}
+                  onChange={(e) => handleFieldChange(field.fieldName, e.target.value)}
+                />
+              );
+            case "fileUpload":
+              return (
+                <FileUpload
+                  key={`${currentStep}-${field.fieldName}`}
+                  field={field}
+                  register={register}
+                  errors={errors}
+                  onChange={(e) => handleFieldChange(field.fieldName, e.target.value)} />
+              );
+            case "checkbox":
+              return (
+                <CheckboxField
+                  key={`${currentStep}-${field.fieldName}`}
+                  field={field}
+                  register={register}
+                  errors={errors}
+                />
+              );
+            case "increment-decrement":
+              return (
+                <IncrementDecrementField
+                  key={`${currentStep}-${field.fieldName}`}
+                  field={field}
+                  register={register}
+                  errors={errors}
+                />
+              );
+            default:
+              return null;
+          }
+        }
+        )}
+          </div>
       </div>
       <div>
         {currentStep > 0 && (
@@ -182,8 +177,9 @@ const RegistrationForm = () => {
             Submit
           </button>
         )}
-      </div>
+        </div>
     </form>
+
   );
 };
 
