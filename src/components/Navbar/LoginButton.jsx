@@ -1,10 +1,12 @@
 import React from 'react'
 import styles from './navbar.module.scss'
 
-const LoginButton = ({ authStatus }) => {
+const LoginButton = ({ authStatus, onClick}) => {
   return (
     <div className={styles.login}>
-      <button className={styles.loginButton}><a href="/login">{authStatus}</a></button>
+      <button className={styles.loginButton} onClick={onClick}>
+        {authStatus}
+        </button>
     </div>
   )
 }

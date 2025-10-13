@@ -1,8 +1,8 @@
 {
     "info": {
         "eventPoster": {
-            "image1": "./src/assets/images/cybervault.png",
-            "image2": "./src/assets/images/cybervault2.png"
+            "image1": "https://res.cloudinary.com/dxfsokbow/image/upload/v1750261400/a35hlbkmgyddgtpsmpsz.png",
+            "image2": "https://res.cloudinary.com/dxfsokbow/image/upload/v1750261401/k28c0tv7d1aqawzpoo0n.png"
             }
         }
 }
