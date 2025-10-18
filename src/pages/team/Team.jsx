@@ -8,7 +8,6 @@ import design from '../../../src/assets/images/design.svg'
 import content from '../../../src/assets/images/content.svg'
 import marketing from '../../../src/assets/images/marketing.svg'
 import video from '../../../src/assets/images/video.svg'
-import dropdown from '../../../src/assets/images/polygon2.svg'
 import githubIcon from '../../assets/images/GitHub.svg'
 import linkedinIcon from '../../assets/images/linkedin.svg'
 import globeIcon from '../../assets/images/globe.svg'
@@ -25,7 +24,7 @@ const Team = () => {
 
       if (response.data.success && Array.isArray(response.data.users)) {
         const grouped = response.data.users.reduce((acc, user) => {
-          const team = user.team || user.branch || 'Others'
+          const team = user.team || 'Other'
           if (!acc[team]) {
             acc[team] = []
           }
@@ -151,11 +150,7 @@ const Team = () => {
         <TeamNames img={marketing} teamName="MARKETING" />
         <TeamNames img={video} teamName="VIDEO EDITOR" />
       </div>
-      <div className={styles.third}>
-        <button className={styles.sort}>
-          SORT BY YEAR <img src={dropdown} alt="dropdown" />
-        </button>
-      </div>
+      {/* sort button removed per design */}
       <div className={styles.fourth}>
         {loading && <p>Loading...</p>}
         {!loading && data && (

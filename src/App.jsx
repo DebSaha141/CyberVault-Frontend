@@ -4,12 +4,14 @@ import Navbar from './components/navbar/Navbar.jsx';
 import NotFound from "./components/NotFound/notFound";
 import RegistrationForm from './components/RegistrationForm/registrationForm.jsx';
 import Home from './pages/home/home.jsx';
-import Team from './pages/Team/Team.jsx';
+import Team from './pages/team/Team.jsx';
+import Event from './pages/events/eventLanding.jsx'
 import About from './pages/about/about.jsx';
 import Login from './pages/auth/SignIn.jsx';
 import SignUp from './pages/auth/SignUp.jsx';
 import AddMember from './pages/addMember/AddMember.jsx';
 import EditMember from './pages/editMember/EditMember.jsx';
+import EventDetail from './pages/events/eventDetail.jsx';
 import Footer from './components/Footer/Footer.jsx';
 
 import { AlertProvider } from "./components/Alert/AlertContext.jsx"; 
@@ -40,8 +42,9 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/about" element={<About />} />
-
+          <Route path ="/event" element={<Event/>}/>
           <Route path="/team" element={<Team />} />
+          <Route path="/events/:id" element={<EventDetail />} />
           <Route path="/addMember" element={<AddMember />} />
           <Route path="/editMember" element={<EditMember />} />
           <Route path="/form" element={<RegistrationForm />} />
